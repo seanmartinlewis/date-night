@@ -19,16 +19,20 @@ lock.on("authenticated", function(authResult) {
     $('.avatar').attr('src', profile.picture);
   });
 });
-
+//decready start
 $(document).ready(function () {
-
+  $('#login').show()
   console.log('date night');
 
-  $('login').on('click', function() {
+  $('#login').on('click', function() {
   lock.show();
+  showProfile()
   })
 
-  $('#dateMaker').on('click', function () {
+  $('#dateMaker').on('click', function (e) {
+    e.preventDefault();
+
+    console.log('working');
     getMovieResults()
     getRecipeResults()
     $('#splashPage').hide()
@@ -43,13 +47,14 @@ $(document).ready(function () {
   })
 
   if (isLoggedIn()) {
+    console.log('loggedin')
     showProfile()
   }
 
   $(document).on('click','#logout', logOut)
 
 });
-
+//doc ready end
 
 function isLoggedIn() {
   console.log('logged');
@@ -84,11 +89,15 @@ function logOut() {
 }
 
 function showProfile() {
+
+
   console.log('show profile');
   $('#login').hide()
   $('#user-info').show()
-  $('#username').text(profile.nickname)
-  $('profilePicture').attr('src', profile.picture)
+  $('#logout').show()
+
+  $('#username').text(username)
+  $('profilePicture').attr('src', profilePicture)
 
 }
 
@@ -120,15 +129,15 @@ function showRecipe() {
 function getMovieResults() {
   console.log('movies');
 
-  var url = "#"
-
-  $.ajax({
-    type: "GET",
-    url: url
-  }).done(function () {
-    console.log(data);
-    showMovie()
-  })
+  // var url = "#"
+  //
+  // $.ajax({
+  //   type: "GET",
+  //   url: url
+  // }).done(function () {
+  //   console.log(data);
+  //   showMovie()
+  // })
 }
 
 function showMovie() {
