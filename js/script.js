@@ -1,0 +1,143 @@
+var lock = new Auth0Lock('70MGYz88Zh03iWlMSdley6WPlkhSElYs', 'rattlesnakemilk.auth0.com', {
+  auth: {
+    params: {
+      scope: 'openid email'
+    }
+  }
+});
+
+lock.on("authenticated", function(authResult) {
+  lock.getProfile(authResult.idToken, function(error, profile) {
+    if (error) {
+      console.log('error',error);
+    }
+    localStorage.setItem('id_token', authResult.idToken)
+    localStorage.setItem('username', profile.nickname)
+    localStorage.setItem('profilePicture', profile.picture)
+
+    $('.nickname').text(profile.nickname);
+    $('.avatar').attr('src', profile.picture);
+  });
+});
+
+$(document).ready(function () {
+
+  console.log('date night');
+
+  $('login').on('click', function() {
+  lock.show();
+  })
+
+  $('#dateMaker').on('click', function () {
+    getMovieResults()
+    getRecipeResults()
+    $('#splashPage').hide()
+    $('#resultsPage').show()
+  })
+
+  $('#getRecipe').on('click', getRecipeResults)
+  $('#getMovie').on('click', getMovieResults)
+  $('#logo').on('click', function () {
+      $('#resultsPage').hide()
+      $('#splashPage').show()
+  })
+
+  if (isLoggedIn()) {
+    showProfile()
+  }
+
+  $(document).on('click','#logout', logOut)
+
+});
+
+
+function isLoggedIn() {
+  console.log('logged');
+  if (localStorage.getItem('idToken')) {
+  return isJwtValid();
+  } else {
+  return false;
+  }
+}
+
+function isJwtValid() {
+  var token = localStorage.getItem('idToken')
+  if (!token) {
+    return false;
+  }
+  var encodedPayload = token.split('.')[1]
+  console.log('encodedPayload', encodedPayload);
+  var decodedPayload = JSON.parse(atob(encodedPayload))
+  console.log('decodedPayload', decodedPayload);
+  var exp = decodedPayload.exp;
+  console.log('exp', exp);
+  var expirationDate = new Date(exp * 1000);
+  console.log('expirationDate', expirationDate);
+  return new Date() <= expirationDate
+}
+
+function logOut() {
+  localStorage.removeItem('idToken')
+  localStorage.removeItem('username', profile.nickname)
+  localStorage.removeItem('profilePicture', profile.picture)
+  window.location.href='/';
+}
+
+function showProfile() {
+  console.log('show profile');
+  $('#login').hide()
+  $('#user-info').show()
+  $('#username').text(profile.nickname)
+  $('profilePicture').attr('src', profile.picture)
+
+}
+
+function getRecipeResults() {
+  console.log('recipes');
+  var food = "tacos"
+  var url = "http://www.recipepuppy.com/api/?q=" + food
+
+  $.ajax({
+    type: "GET",
+    url: url
+  }).done(function () {
+    console.log(data);
+    showRecipe()
+  })
+}
+
+function showRecipe() {
+  console.log('recipe');
+  var recipeTitle = data.title
+  var recipeIngredients = data.ingredients
+  var recipePic = data.thumbnail
+
+  $('#recipeName').text(recipeTitle);
+  $('#recipePic').attr('src',recipePic);
+  $('#recipeIngredients').text(recipeIngredients);
+}
+
+function getMovieResults() {
+  console.log('movies');
+
+  var url = "#"
+
+  $.ajax({
+    type: "GET",
+    url: url
+  }).done(function () {
+    console.log(data);
+    showMovie()
+  })
+}
+
+function showMovie() {
+  console.log('movie');
+  // var movieTitle =
+  // var movieSummary =
+  // var moviePic =
+  //
+  // $('#movieTitle').text(movieTitle);
+  // $('#moviePic').attr('src',moviePic);
+  // $('#movieSummary').text(movieSummary);
+}
