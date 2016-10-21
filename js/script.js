@@ -78,6 +78,8 @@ function isJwtValid() {
 
 function logOut() {
   localStorage.removeItem('idToken')
+  localStorage.removeItem('username', profile.nickname)
+  localStorage.removeItem('profilePicture', profile.picture)
   window.location.href='/';
 }
 
