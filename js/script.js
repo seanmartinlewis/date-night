@@ -15,8 +15,7 @@ lock.on("authenticated", function(authResult) {
     localStorage.setItem('username', profile.nickname)
     localStorage.setItem('profilePicture', profile.picture)
 
-    $('.nickname').text(profile.nickname);
-    $('.avatar').attr('src', profile.picture);
+    showProfile();
   });
 });
 //decready start
@@ -26,7 +25,7 @@ $(document).ready(function () {
 
   $('#login').on('click', function() {
   lock.show();
-  showProfile()
+
   })
 
   $('#dateMaker').on('click', function (e) {
@@ -83,8 +82,8 @@ function isJwtValid() {
 
 function logOut() {
   localStorage.removeItem('idToken')
-  localStorage.removeItem('username', profile.nickname)
-  localStorage.removeItem('profilePicture', profile.picture)
+  localStorage.removeItem('username')
+  localStorage.removeItem('profilePicture')
   window.location.href='/';
 }
 
@@ -93,11 +92,11 @@ function showProfile() {
 
   console.log('show profile');
   $('#login').hide()
-  $('#user-info').show()
+  $('#userInfo').show()
   $('#logout').show()
 
   $('#username').text(username)
-  $('profilePicture').attr('src', profilePicture)
+  $('#profilePicture').attr('src', profilePicture)
 
 }
 
