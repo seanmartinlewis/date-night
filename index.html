@@ -2,12 +2,63 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Date Night</title>
+    <link href="https://fonts.googleapis.com/css?family=Mogra|Satisfy" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-
+    <header>
+      <a id="logo" href="#">LOGO</a>
+      <a id="login" href="#">Login</a>
+      <div id="userInfo">
+        <p id="username">username</p>
+        <img id="profilePicture" src="#" alt="" />
+        <a id="logout" href="#">Logout</a>
+      </div>
+    </header>
+    <main>
+      <div id="splashPage">
+        <h1>date night</h1>
+        <form>
+          <select id="movieGenre" class="selectpicker">
+            <option value="horror">Horror</option>
+            <option value="comedy">Comedy</option>
+            <option value="drama">Drama</option>
+            <option value="romance">Romance</option>
+          </select>
+          <select id="foodType" class="selectpicker">
+            <option value="fish">Fish</option>
+            <option value="chicken">Chicken</option>
+            <option value="beef">Beef</option>
+            <option value="vegetarian">Vegetarian</option>
+          </select>
+          <input id="dateMaker" type="submit" value="Make My Date">
+        </form>
+      </div>
+      <div id="resultsPage">
+        <div id="movieResults" class="column">
+          <h2>Movie Results</h2>
+          <img id="moviePic" src="#" alt="movie thumbnail" />
+          <h3 id="movieTitle"></h3>
+          <p id="movieSummary"></p>
+          <button id="getMovie">Get Next</button>
+        </div>
+        <div id="recipeResults" class="column">
+          <h2>Recipe Results</h2>
+          <img id="recipePic" src="#" alt="recipe thumbnail" />
+          <h3 id="recipeName"></h3>
+          <p id="recipeIngredients"></p>
+          <button id="getRecipe">Get Next</button>
+        </div>
+        <button id="saveResults">Save</button>
+      </div>
+    </main>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
     <script src="js/script.js" charset="utf-8"></script>
   </body>
 </html>
