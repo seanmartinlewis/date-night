@@ -95,22 +95,26 @@ function showProfile() {
 
 function getRecipeResults(json) {
   console.log(json);
+  var pageNum = Math.round((Math.random()*4)+1)
+  var food = 'chicken';
   $.ajax({
-    url: "http://www.recipepuppy.com/api/",
+    url: "http://www.recipepuppy.com/api/?i=" + food + "&p=" + pageNum,
     jsonp: "callback",
     dataType: "jsonp",
     jsonpCallback: "logResults"
   }).done(function (response) {
+    var randomIndex = (Math.round(Math.random()*10));
+    var randomRecipe = response.results[randomIndex];
      console.log(response);
-    // showRecipe();
+     showRecipe(randomRecipe);
   })
 }
 
-function showRecipe() {
+function showRecipe(recipe) {
   console.log('recipe');
-  var recipeTitle = data.title;
-  var recipeIngredients = data.ingredients;
-  var recipePic = data.thumbnail;
+  var recipeTitle = recipe.title;
+  var recipeIngredients = recipe.ingredients;
+  var recipePic = recipe.thumbnail;
 
   $('#recipeName').text(recipeTitle);
   $('#recipePic').attr('src',recipePic);
