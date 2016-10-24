@@ -190,7 +190,7 @@ function saveDateResults() {
   };
 
   $.ajax({
-    url: 'http://localhost:3000/profile',
+    url: 'https://thawing-sea-85558.herokuapp.com/profile',
     data: data,
     method: 'POST'
   })
