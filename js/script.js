@@ -101,8 +101,9 @@ function showProfile() {
 
 function getRecipeResults(json) {
   console.log(json);
+  var userSelection = $('#foodType option:selected').val();
   var pageNum = Math.round((Math.random()*4)+1)
-  var food = 'chicken';
+  var food = userSelection;
   $.ajax({
     url: "http://www.recipepuppy.com/api/?q=" + food + "&p=" + pageNum,
     jsonp: "callback",
