@@ -114,8 +114,8 @@ function showProfile() {
   $('#login').addClass('hidden');
 
   // Inject user info into page and show it
-  $('#username').text(localStorage.getItem('username'));
-  $('header .profilePicture').attr('src', localStorage.getItem('profilePicture'));
+  $('.username').text(localStorage.getItem('username'));
+  $('.profilePicture').attr('src', localStorage.getItem('profilePicture'));
   $('#userInfo').removeClass('hidden');
 }
 
