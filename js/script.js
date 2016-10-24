@@ -1,3 +1,4 @@
+// Auth0 authentication setup
 var lock = new Auth0Lock('70MGYz88Zh03iWlMSdley6WPlkhSElYs', 'rattlesnakemilk.auth0.com', {
   auth: {
     params: {
@@ -11,114 +12,105 @@ lock.on("authenticated", function(authResult) {
     if (error) {
       console.log('error',error);
     }
-    localStorage.setItem('id_token', authResult.idToken)
-    localStorage.setItem('username', profile.nickname)
-    localStorage.setItem('profilePicture', profile.picture)
+    localStorage.setItem('idToken', authResult.idToken);
+    localStorage.setItem('username', profile.nickname);
+    localStorage.setItem('profilePicture', profile.picture);
 
     showProfile();
   });
 });
-//decready start
+
+// doc ready start
 $(document).ready(function () {
-  $('#login').show()
-  console.log('date night');
 
+  // Check if user is still logged in from previous session
+  if (isLoggedIn()) {
+    showProfile();
+  }
+
+  // Trigger Auth0 lock when login button clicked
   $('#login').on('click', function() {
-  lock.show();
+    lock.show();
+  });
 
-  })
-
+  // Call APIs when "datemaker" button clicked
   $('#dateMaker').on('click', function (e) {
     e.preventDefault();
 
-    console.log('working');
-    getMovieResults()
-    getRecipeResults()
-    $('#splashPage').hide()
-    $('#resultsPage').show()
-  })
+    getMovieResults();
+    getRecipeResults();
+    $('#splashPage').hide();
+    $('#resultsPage').show();
+  });
 
-  $('#getRecipe').on('click', getRecipeResults)
-  $('#getMovie').on('click', getMovieResults)
+  // New API call on "Get Next" button click on results page
+  $('#getRecipe').on('click', getRecipeResults);
+  $('#getMovie').on('click', getMovieResults);
+
+  // Return users to splash page when they click on the logo
   $('#logo').on('click', function () {
-      $('#resultsPage').hide()
-      $('#splashPage').show()
-  })
+      $('#resultsPage').hide();
+      $('#splashPage').show();
+  });
 
-  if (isLoggedIn()) {
-    console.log('loggedin')
-    showProfile()
-  }
-
-  $(document).on('click','#logout', logOut)
-
+  // Log out via Auth0 when logout button clicked
+  $('#logout').on('click', logOut);
 });
 //doc ready end
 
 function isLoggedIn() {
-  console.log('logged');
-  if (localStorage.getItem('idToken')) {
-  return isJwtValid();
-  } else {
-  return false;
-  }
-}
-
-function isJwtValid() {
   var token = localStorage.getItem('idToken')
+
+  // Check for valid user token in localStorage
   if (!token) {
     return false;
   }
-  var encodedPayload = token.split('.')[1]
-  console.log('encodedPayload', encodedPayload);
-  var decodedPayload = JSON.parse(atob(encodedPayload))
-  console.log('decodedPayload', decodedPayload);
+
+  // Extract jwt expiration from token; check validity
+  var encodedPayload = token.split('.')[1];
+  var decodedPayload = JSON.parse(atob(encodedPayload));
   var exp = decodedPayload.exp;
-  console.log('exp', exp);
   var expirationDate = new Date(exp * 1000);
-  console.log('expirationDate', expirationDate);
-  return new Date() <= expirationDate
+
+  return new Date() <= expirationDate;
 }
 
 function logOut() {
-  localStorage.removeItem('idToken')
-  localStorage.removeItem('username')
-  localStorage.removeItem('profilePicture')
+  localStorage.removeItem('idToken');
+  localStorage.removeItem('username');
+  localStorage.removeItem('profilePicture');
   window.location.href='/';
 }
 
 function showProfile() {
 
+  // Hide login button
+  $('#login').hide();
 
-  console.log('show profile');
-  $('#login').hide()
-  $('#userInfo').show()
-  $('#logout').show()
-
-  $('#username').text(username)
-  $('#profilePicture').attr('src', profilePicture)
-
+  // Inject user info into page and show it
+  $('#username').text(localStorage.getItem('username'));
+  $('#profilePicture').attr('src', localStorage.getItem('profilePicture'));
+  $('#userInfo').show();
 }
 
 function getRecipeResults() {
   console.log('recipes');
-  var food = "tacos"
-  var url = "http://www.recipepuppy.com/api/?q=" + food
+  var food = "tacos";
+  var url = "http://www.recipepuppy.com/api/?q=" + food;
 
   $.ajax({
-    type: "GET",
     url: url
   }).done(function () {
     console.log(data);
-    showRecipe()
+    showRecipe();
   })
 }
 
 function showRecipe() {
   console.log('recipe');
-  var recipeTitle = data.title
-  var recipeIngredients = data.ingredients
-  var recipePic = data.thumbnail
+  var recipeTitle = data.title;
+  var recipeIngredients = data.ingredients;
+  var recipePic = data.thumbnail;
 
   $('#recipeName').text(recipeTitle);
   $('#recipePic').attr('src',recipePic);
