@@ -113,7 +113,7 @@ function showProfile() {
 
   // Inject user info into page and show it
   $('#username').text(localStorage.getItem('username'));
-  $('#profilePicture').attr('src', localStorage.getItem('profilePicture'));
+  $('header .profilePicture').attr('src', localStorage.getItem('profilePicture'));
   $('#userInfo').removeClass('hidden');
 }
 
@@ -245,7 +245,7 @@ function loadDates() {
 function loadDate(date) {
 
   var li = $('<li />');
-  var profPic = $('<img />').attr('src', date.profilePicture);
+  var profPic = $('<img />').attr('src', date.profilePicture).addClass('profilePicture');
   var dayAndTime = $('<p />').text(date.date);
   var user = $('<p />').text(date.username);
   var moviePic = $('<img />').attr('src', date.moviePicture);

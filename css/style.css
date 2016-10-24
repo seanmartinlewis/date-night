@@ -80,7 +80,7 @@ div.dropdown-toggle {
 	min-width: 70px;
 }
 
-header img {
+img.profilePicture {
 	width: 70px;
 	height: 70px;
 }
@@ -134,6 +134,4 @@ button#saveResults {
   margin: 0 auto;
 }
 
-div#splashPage {
-
-}
+/*----PROFILE PAGE STYLES----*/
