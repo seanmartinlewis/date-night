@@ -42,7 +42,30 @@ $(document).ready(function () {
      getRecipeResults();
     $('#splashPage').hide();
     $('#resultsPage').show();
+
+    $('#myDates').on("click", loadDates);
   });
+//end docuready
+
+  function loadDates(event) {
+    event.preventDefault();
+    $.ajax(){
+    url: "https://thawing-sea-85558.herokuapp.com/profile",
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+    }
+    }.done(function(data){
+      data.forEach(function(datum){
+        loadDate(datum)
+      })
+    })
+  }
+  function loadDate(data) {
+    console.log(data);
+    var li = $('<li />')
+    li.text(data)
+    $('#dates').append(li);
+  }
 
   // New API call on "Get Next" button click on results page
   $('#getRecipe').on('click', getRecipeResults);
@@ -190,9 +213,12 @@ function saveDateResults() {
   };
 
   $.ajax({
-    url: 'http://localhost:3000/profile',
+    url: 'https://thawing-sea-85558.herokuapp.com/profile',
     data: data,
-    method: 'POST'
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+    }
   })
   .done(function (response) {
     console.log('response', response);
