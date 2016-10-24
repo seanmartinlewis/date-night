@@ -38,7 +38,7 @@ $(document).ready(function () {
     e.preventDefault();
 
     getMovieResults();
-    getRecipeResults();
+    // getRecipeResults();
     $('#splashPage').hide();
     $('#resultsPage').show();
   });
@@ -94,50 +94,70 @@ function showProfile() {
 }
 
 function getRecipeResults() {
-  console.log('recipes');
-  var food = "tacos";
-  var url = "http://www.recipepuppy.com/api/?q=" + food;
-
-  $.ajax({
-    url: url
-  }).done(function () {
-    console.log(data);
-    showRecipe();
-  })
+  // console.log('recipes');
+  // var food = "tacos";
+  // var url = "http://www.recipepuppy.com/api/?q=" + food;
+  //
+  // $.ajax({
+  //   url: url
+  // }).done(function () {
+  //   console.log(data);
+  //   showRecipe();
+  // })
 }
 
 function showRecipe() {
-  console.log('recipe');
-  var recipeTitle = data.title;
-  var recipeIngredients = data.ingredients;
-  var recipePic = data.thumbnail;
-
-  $('#recipeName').text(recipeTitle);
-  $('#recipePic').attr('src',recipePic);
-  $('#recipeIngredients').text(recipeIngredients);
+  // console.log('recipe');
+  // var recipeTitle = data.title;
+  // var recipeIngredients = data.ingredients;
+  // var recipePic = data.thumbnail;
+  //
+  // $('#recipeName').text(recipeTitle);
+  // $('#recipePic').attr('src',recipePic);
+  // $('#recipeIngredients').text(recipeIngredients);
 }
 
 function getMovieResults() {
   console.log('movies');
 
-  // var url = "#"
-  //
-  // $.ajax({
-  //   type: "GET",
-  //   url: url
-  // }).done(function () {
-  //   console.log(data);
-  //   showMovie()
-  // })
+  // Create object with "official genre codes"
+  var genreObj = {
+    'horror': '27',
+    'comedy': '35',
+    'drama': '18',
+    'romance': '10749'
+  };
+
+  // Get user selected genre and associated genre code
+  var userSelection = $('#movieGenre option:selected').val();
+  var genreCode = genreObj[userSelection];
+
+  // Results are returned by page num; get results from a random page between 1 and 21
+  var pageNum = Math.round((Math.random()*10) + 1);
+
+  $.ajax({
+    url: 'https://api.themoviedb.org/3/discover/movie?api_key=63efd94ec261de399db1622ddbc1ab22&language=en-US&sort_by=popularity.desc&include_adult=false&page=' + pageNum + '&with_genres=' + genreCode
+  })
+  .done(function(data) {
+
+    // Of the 20 results, randomly select a movie
+    var randomIndex = (Math.round(Math.random()*20));
+    var randomMovie = data.results[randomIndex];
+
+    console.log(randomMovie);
+    showMovie(randomMovie);
+  })
+  .fail(function (jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown);
+  });
 }
 
-function showMovie() {
-  console.log('movie');
-  // var movieTitle =
-  // var movieSummary =
-  // var moviePic =
-  //
-  // $('#movieTitle').text(movieTitle);
-  // $('#moviePic').attr('src',moviePic);
-  // $('#movieSummary').text(movieSummary);
+function showMovie(movie) {
+  var movieTitle = movie.title;
+  var movieSummary = movie.overview;
+  var moviePic = 'http://image.tmdb.org/t/p/w185' + movie.poster_path;
+
+  $('#movieTitle').text(movieTitle);
+  $('#moviePic').attr('src',moviePic);
+  $('#movieSummary').text(movieSummary);
 }
