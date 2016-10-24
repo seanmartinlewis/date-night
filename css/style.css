@@ -111,12 +111,15 @@ input#dateMaker {
 /*----RESULTS PAGE STYLES----*/
 .row {
   width: 80%;
+	min-height: 500px;
   margin: 0 auto;
 }
 
 div.column {
   display: inline-block;
+	height: 500px;
   width: 48%;
+	overflow: scroll;
   text-align: center;
   padding: 30px;
   background-color: red;
