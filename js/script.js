@@ -63,9 +63,16 @@ $(document).ready(function () {
 
   // Return users to splash page when they click on the logo
   $('#logo').on('click', function () {
-      $('#resultsPage').addClass('hidden');
-      $('#profilePage').addClass('hidden');
-      $('#splashPage').removeClass('hidden');
+    $('#splashPage').removeClass('hidden');
+    $('#resultsPage').addClass('hidden');
+    $('#profilePage').addClass('hidden');
+  });
+
+  // Users can see profile from navigation bar
+  $('#showProfile').on('click', function () {
+    $('#profilePage').removeClass('hidden');
+    $('#resultsPage').addClass('hidden');
+    $('#splashPage').addClass('hidden');
   });
 
   // Log out via Auth0 when logout button clicked
