@@ -120,7 +120,7 @@ function showProfile() {
 }
 
 function getRecipeResults(json) {
-  console.log(json);
+
   var userSelection = $('#foodType option:selected').val();
   var pageNum = Math.round((Math.random()*4)+1)
   var food = userSelection;
@@ -132,13 +132,13 @@ function getRecipeResults(json) {
   }).done(function (response) {
     var randomIndex = (Math.round(Math.random()*10));
     var randomRecipe = response.results[randomIndex];
-     console.log(response);
+
      showRecipe(randomRecipe);
   })
 }
 
 function showRecipe(recipe) {
-  console.log('recipe');
+
   var recipeTitle = recipe.title;
   var recipeIngredients = recipe.ingredients;
   var recipePic = recipe.thumbnail;
@@ -148,7 +148,6 @@ function showRecipe(recipe) {
   $('#recipeIngredients').text(recipeIngredients);
 }
 function getMovieResults() {
-  console.log('movies');
 
   // Create object with "official genre codes"
   var genreObj = {
@@ -174,7 +173,6 @@ function getMovieResults() {
     var randomIndex = (Math.round(Math.random()*20));
     var randomMovie = data.results[randomIndex];
 
-    console.log(randomMovie);
     showMovie(randomMovie);
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
@@ -248,11 +246,14 @@ function loadDate(date) {
 
   var li = $('<li />');
   var profPic = $('<img />').attr('src', date.profilePicture).addClass('profilePicture');
-  var dayAndTime = $('<p />').text(date.date);
+  var dateString = date.date;
+  var month = dateString.split(' ')[1];
+  var day = dateString.split(' ')[2];
+  var monthAndDay = $('<p />').text(month + " " + day);
   var user = $('<p />').text(date.username);
   var moviePic = $('<img />').attr('src', date.moviePicture);
   var recipePic = $('<img />').attr('src', date.recipePicture);
 
-  li.append(profPic, dayAndTime, user, moviePic, recipePic);
+  li.append(profPic, user, monthAndDay, moviePic, recipePic);
   $('#dates').prepend(li);
 }
