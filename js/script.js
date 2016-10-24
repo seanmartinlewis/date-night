@@ -74,6 +74,8 @@ $(document).ready(function () {
     $('#profilePage').removeClass('hidden');
     $('#resultsPage').addClass('hidden');
     $('#splashPage').addClass('hidden');
+
+    loadDates();
   });
 
   // Log out via Auth0 when logout button clicked
