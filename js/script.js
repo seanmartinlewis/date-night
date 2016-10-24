@@ -50,7 +50,13 @@ $(document).ready(function () {
 
 
   // save the date results to database
-  $('#saveResults').on('click', saveDateResults);
+  $('#saveResults').on('click', function() {
+    if(isLoggedIn()) {
+      saveDateResults();
+    } else {
+      alert('You have to be logged in to save your date!');
+    }
+  });
 
   // Return users to splash page when they click on the logo
   $('#logo').on('click', function () {
