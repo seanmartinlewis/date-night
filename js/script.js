@@ -56,6 +56,7 @@ $(document).ready(function () {
   $('#saveResults').on('click', function() {
     if(isLoggedIn()) {
       saveDateResults();
+      loadDates();
     } else {
       alert('You have to be logged in to save your date!');
     }
@@ -215,7 +216,6 @@ function saveDateResults() {
     }
   })
   .done(function (response) {
-    console.log('response', response);
     $('#resultsPage').addClass('hidden');
     $('#profilePage').removeClass('hidden');
   })
@@ -224,24 +224,33 @@ function saveDateResults() {
   });
 }
 
-function loadDates(event) {
-    event.preventDefault();
-    $.ajax({
-      url: "https://thawing-sea-85558.herokuapp.com/profile",
-      headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('idToken')
-      }
-    })
-  .done(function(data){
-      data.forEach(function(datum){
-        loadDate(datum)
-      })
-    })
-  }
+function loadDates() {
 
-function loadDate(data) {
-    console.log(data);
-    var li = $('<li />')
-    li.text(data)
-    $('#dates').append(li);
-  }
+    $.ajax({
+      url: "https://thawing-sea-85558.herokuapp.com/profile"
+      // headers: {
+      //   'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+      // }
+    })
+  .done(function(response){
+    response.forEach(function(date){
+      loadDate(date);
+    });
+  })
+  .fail(function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+  });
+}
+
+function loadDate(date) {
+
+  var li = $('<li />');
+  var profPic = $('<img />').attr('src', date.profilePicture);
+  var dayAndTime = $('<p />').text(date.date);
+  var user = $('<p />').text(date.username);
+  var moviePic = $('<img />').attr('src', date.moviePicture);
+  var recipePic = $('<img />').attr('src', date.recipePicture);
+
+  li.append(profPic, dayAndTime, user, moviePic, recipePic);
+  $('#dates').prepend(li);
+}
