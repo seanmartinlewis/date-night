@@ -38,7 +38,7 @@ $(document).ready(function () {
     e.preventDefault();
 
     getMovieResults();
-    // getRecipeResults();
+     getRecipeResults();
     $('#splashPage').hide();
     $('#resultsPage').show();
   });
@@ -98,7 +98,7 @@ function getRecipeResults(json) {
   var pageNum = Math.round((Math.random()*4)+1)
   var food = 'chicken';
   $.ajax({
-    url: "http://www.recipepuppy.com/api/?i=" + food + "&p=" + pageNum,
+    url: "http://www.recipepuppy.com/api/?q=" + food + "&p=" + pageNum,
     jsonp: "callback",
     dataType: "jsonp",
     jsonpCallback: "logResults"
