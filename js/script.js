@@ -40,8 +40,8 @@ $(document).ready(function () {
 
     getMovieResults();
      getRecipeResults();
-    $('#splashPage').hide();
-    $('#resultsPage').show();
+    $('#splashPage').addClass('hidden');
+    $('#resultsPage').removeClass('hidden');
   });
 
   // New API call on "Get Next" button click on results page
@@ -54,8 +54,9 @@ $(document).ready(function () {
 
   // Return users to splash page when they click on the logo
   $('#logo').on('click', function () {
-      $('#resultsPage').hide();
-      $('#splashPage').show();
+      $('#resultsPage').addClass('hidden');
+      $('#profilePage').addClass('hidden');
+      $('#splashPage').removeClass('hidden');
   });
 
   // Log out via Auth0 when logout button clicked
@@ -91,12 +92,12 @@ function logOut() {
 function showProfile() {
 
   // Hide login button
-  $('#login').hide();
+  $('#login').addClass('hidden');
 
   // Inject user info into page and show it
   $('#username').text(localStorage.getItem('username'));
   $('#profilePicture').attr('src', localStorage.getItem('profilePicture'));
-  $('#userInfo').show();
+  $('#userInfo').removeClass('hidden')();
 }
 
 function getRecipeResults(json) {
@@ -196,9 +197,9 @@ function saveDateResults() {
   })
   .done(function (response) {
     console.log('response', response);
-    $('#resultsPage').hide();
-    $('#saveResults').hide();
-    $('#profilePage').show();
+    $('#resultsPage').addClass('hidden');
+    $('#saveResults').addClass('hidden');
+    $('#profilePage').removeClass('hidden');
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
