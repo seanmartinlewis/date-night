@@ -93,16 +93,16 @@ function showProfile() {
   $('#userInfo').show();
 }
 
-function getRecipeResults() {
-  console.log('recipes');
-  var food = "tacos";
-  var url = "http://www.recipepuppy.com/api/?q=" + food;
-
+function getRecipeResults(json) {
+  console.log(json);
   $.ajax({
-    url: url
-  }).done(function () {
-    console.log(data);
-    showRecipe();
+    url: "http://www.recipepuppy.com/api/",
+    jsonp: "callback",
+    dataType: "jsonp",
+    jsonpCallback: "logResults"
+  }).done(function (response) {
+     console.log(response);
+    // showRecipe();
   })
 }
 
