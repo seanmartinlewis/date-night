@@ -15,6 +15,7 @@ lock.on("authenticated", function(authResult) {
     localStorage.setItem('idToken', authResult.idToken);
     localStorage.setItem('username', profile.nickname);
     localStorage.setItem('profilePicture', profile.picture);
+    localStorage.setItem('userId', profile.user_id);
 
     showProfile();
   });
@@ -46,6 +47,10 @@ $(document).ready(function () {
   // New API call on "Get Next" button click on results page
   $('#getRecipe').on('click', getRecipeResults);
   $('#getMovie').on('click', getMovieResults);
+
+
+  // save the date results to database
+  $('#saveResults').on('click', saveDateResults);
 
   // Return users to splash page when they click on the logo
   $('#logo').on('click', function () {
@@ -79,6 +84,7 @@ function logOut() {
   localStorage.removeItem('idToken');
   localStorage.removeItem('username');
   localStorage.removeItem('profilePicture');
+  localStorage.removeItem('userId');
   window.location.href='/';
 }
 
@@ -163,4 +169,34 @@ function showMovie(movie) {
   $('#movieTitle').text(movieTitle);
   $('#moviePic').attr('src',moviePic);
   $('#movieSummary').text(movieSummary);
+}
+
+function saveDateResults() {
+  var username = localStorage.getItem('username');
+  var date = new Date();
+  var moviePicture = $('#moviePic').attr('src');
+  var recipePicture = $('#recipePic').attr('src');
+  var profilePicture = localStorage.getItem('profilePicture');
+  var userId = localStorage.getItem('userId');
+
+  var data = {
+    username: username,
+    date: date,
+    moviePicture: moviePicture,
+    recipePicture: recipePicture,
+    profilePicture: profilePicture,
+    userId: userId
+  };
+
+  $.ajax({
+    url: 'http://localhost:3000/profile',
+    data: data,
+    method: 'POST'
+  })
+  .done(function (response) {
+    console.log('response', response);
+  })
+  .fail(function (jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown);
+  });
 }
