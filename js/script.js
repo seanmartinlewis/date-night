@@ -204,7 +204,6 @@ function saveDateResults() {
   .done(function (response) {
     console.log('response', response);
     $('#resultsPage').addClass('hidden');
-    $('#saveResults').addClass('hidden');
     $('#profilePage').removeClass('hidden');
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
