@@ -55,6 +55,10 @@ table {
 /*----BEGIN CUSTOM STYLES----*/
 /*---------------------------*/
 
+.hidden {
+	display: none;
+}
+
 /*-----HEADER STYLES-----*/
 header {
   padding: 20px;
@@ -68,8 +72,22 @@ a#login {
   float: right;
 }
 
+div.dropdown-toggle {
+	cursor: pointer;
+}
+
+.dropdown-menu {
+	min-width: 70px;
+}
+
+header img {
+	width: 70px;
+	height: 70px;
+}
+
 div#userInfo {
-	display: none;
+	display: inline-block;
+	float:right;
 }
 
 /*----SPLASH PAGE STYLES----*/

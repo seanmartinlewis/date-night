@@ -39,12 +39,15 @@ $(document).ready(function () {
     e.preventDefault();
 
     getMovieResults();
-     getRecipeResults();
-    $('#splashPage').hide();
-    $('#resultsPage').show();
+    getRecipeResults();
 
-    $('#myDates').on("click", loadDates);
+    $('#splashPage').addClass('hidden');
+    $('#resultsPage').removeClass('hidden');
   });
+
+  $('#myDates').on("click", loadDates);
+
+});
 //end docuready
 
   function loadDates(event) {
@@ -73,12 +76,19 @@ $(document).ready(function () {
 
 
   // save the date results to database
-  $('#saveResults').on('click', saveDateResults);
+  $('#saveResults').on('click', function() {
+    if(isLoggedIn()) {
+      saveDateResults();
+    } else {
+      alert('You have to be logged in to save your date!');
+    }
+  });
 
   // Return users to splash page when they click on the logo
   $('#logo').on('click', function () {
-      $('#resultsPage').hide();
-      $('#splashPage').show();
+      $('#resultsPage').addClass('hidden');
+      $('#profilePage').addClass('hidden');
+      $('#splashPage').removeClass('hidden');
   });
 
   // Log out via Auth0 when logout button clicked
@@ -114,12 +124,12 @@ function logOut() {
 function showProfile() {
 
   // Hide login button
-  $('#login').hide();
+  $('#login').addClass('hidden');
 
   // Inject user info into page and show it
   $('#username').text(localStorage.getItem('username'));
   $('#profilePicture').attr('src', localStorage.getItem('profilePicture'));
-  $('#userInfo').show();
+  $('#userInfo').removeClass('hidden');
 }
 
 function getRecipeResults(json) {
@@ -222,9 +232,8 @@ function saveDateResults() {
   })
   .done(function (response) {
     console.log('response', response);
-    $('#resultsPage').hide();
-    $('#saveResults').hide();
-    $('#profilePage').show();
+    $('#resultsPage').addClass('hidden');
+    $('#profilePage').removeClass('hidden');
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
