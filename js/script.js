@@ -120,28 +120,3 @@ function showRecipe(recipe) {
   $('#recipePic').attr('src',recipePic);
   $('#recipeIngredients').text(recipeIngredients);
 }
-
-function getMovieResults() {
-  console.log('movies');
-
-  // var url = "#"
-  //
-  // $.ajax({
-  //   type: "GET",
-  //   url: url
-  // }).done(function () {
-  //   console.log(data);
-  //   showMovie()
-  // })
-}
-
-function showMovie() {
-  console.log('movie');
-  // var movieTitle =
-  // var movieSummary =
-  // var moviePic =
-  //
-  // $('#movieTitle').text(movieTitle);
-  // $('#moviePic').attr('src',moviePic);
-  // $('#movieSummary').text(movieSummary);
-}
