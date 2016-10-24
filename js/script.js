@@ -195,6 +195,9 @@ function saveDateResults() {
   })
   .done(function (response) {
     console.log('response', response);
+    $('#resultsPage').hide();
+    $('#saveResults').hide();
+    $('#profilePage').show();
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
