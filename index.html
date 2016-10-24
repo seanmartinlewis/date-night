@@ -23,6 +23,7 @@
           </div>
           <ul class="dropdown-menu">
             <li id="username"></li>
+            <li><a id="showProfile" href="#">My Profile</a></li>
             <li><a id="logout" href="#">Logout</a></li>
           </ul>
         </div>
@@ -49,7 +50,7 @@
           <input id="dateMaker" type="submit" value="Make My Date">
         </form>
       </div>
-      <div id="resultsPage" class="hidden">
+      <div id="resultsPage" class="row hidden">
         <div id="movieResults" class="column">
           <h2>Movie Results</h2>
           <img id="moviePic" src="#" alt="movie thumbnail" />
@@ -66,18 +67,18 @@
         </div>
         <button id="saveResults">Save</button>
       </div>
-      <div id="profilePage" class="hidden">
+      <div id="profilePage" class="row hidden">
         <div class="column" id="userProfile">
-        <h2 id="usernameProfile">Username</h2>
-        <img class="profilePicture" src="" alt="">
-        <h3 id="favFoods">Favorite Foods</h3>
-        <h3 id="favMovies">Favorite Movies</h3>
+          <h2 id="usernameProfile">Username</h2>
+          <img class="profilePicture" src="" alt="">
+          <h3 id="favFoods">Favorite Foods</h3>
+          <h3 id="favMovies">Favorite Movies</h3>
         </div>
         <div class="column" id="dateLog">
           <nav>
             <a href="" id="publicDates">All Dates</a>
             <a href="" id="myDates">My Dates</a>
-          <ul class="date"></ul>
+          <ul id="dates"></ul>
         </div>
       </div>
     </main>

@@ -38,47 +38,25 @@ $(document).ready(function () {
   $('#dateMaker').on('click', function (e) {
     e.preventDefault();
 
-    getMovieResults();
-    getRecipeResults();
-
     $('#splashPage').addClass('hidden');
     $('#resultsPage').removeClass('hidden');
+
+    getMovieResults();
+    getRecipeResults();
   });
 
+  // Load dates from database
   $('#myDates').on("click", loadDates);
-
-});
-//end docuready
-
-  function loadDates(event) {
-    event.preventDefault();
-    $.ajax(){
-    url: "https://thawing-sea-85558.herokuapp.com/profile",
-    headers: {
-      'Authorization': 'Bearer ' + localStorage.getItem('idToken')
-    }
-    }.done(function(data){
-      data.forEach(function(datum){
-        loadDate(datum)
-      })
-    })
-  }
-  function loadDate(data) {
-    console.log(data);
-    var li = $('<li />')
-    li.text(data)
-    $('#dates').append(li);
-  }
 
   // New API call on "Get Next" button click on results page
   $('#getRecipe').on('click', getRecipeResults);
   $('#getMovie').on('click', getMovieResults);
 
-
   // save the date results to database
   $('#saveResults').on('click', function() {
     if(isLoggedIn()) {
       saveDateResults();
+      loadDates();
     } else {
       alert('You have to be logged in to save your date!');
     }
@@ -86,9 +64,16 @@ $(document).ready(function () {
 
   // Return users to splash page when they click on the logo
   $('#logo').on('click', function () {
-      $('#resultsPage').addClass('hidden');
-      $('#profilePage').addClass('hidden');
-      $('#splashPage').removeClass('hidden');
+    $('#splashPage').removeClass('hidden');
+    $('#resultsPage').addClass('hidden');
+    $('#profilePage').addClass('hidden');
+  });
+
+  // Users can see profile from navigation bar
+  $('#showProfile').on('click', function () {
+    $('#profilePage').removeClass('hidden');
+    $('#resultsPage').addClass('hidden');
+    $('#splashPage').addClass('hidden');
   });
 
   // Log out via Auth0 when logout button clicked
@@ -231,11 +216,41 @@ function saveDateResults() {
     }
   })
   .done(function (response) {
-    console.log('response', response);
     $('#resultsPage').addClass('hidden');
     $('#profilePage').removeClass('hidden');
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
   });
+}
+
+function loadDates() {
+
+    $.ajax({
+      url: "https://thawing-sea-85558.herokuapp.com/profile"
+      // headers: {
+      //   'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+      // }
+    })
+  .done(function(response){
+    response.forEach(function(date){
+      loadDate(date);
+    });
+  })
+  .fail(function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+  });
+}
+
+function loadDate(date) {
+
+  var li = $('<li />');
+  var profPic = $('<img />').attr('src', date.profilePicture);
+  var dayAndTime = $('<p />').text(date.date);
+  var user = $('<p />').text(date.username);
+  var moviePic = $('<img />').attr('src', date.moviePicture);
+  var recipePic = $('<img />').attr('src', date.recipePicture);
+
+  li.append(profPic, dayAndTime, user, moviePic, recipePic);
+  $('#dates').prepend(li);
 }
