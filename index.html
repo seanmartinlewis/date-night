@@ -56,7 +56,7 @@
 
   <!-- RESULTS PAGE -->
 
-      <div id="resultsPage" class="row hidden">
+      <div id="resultsPage" class="container hidden">
         <div id="movieResults" class="column">
           <h2>Movie Results</h2>
           <img id="moviePic" src="#" alt="movie thumbnail" />
@@ -76,19 +76,23 @@
 
   <!-- PROFILE PAGE -->
 
-      <div id="profilePage" class="row hidden">
-        <div class="column" id="userProfile">
+      <div id="profilePage" class="container hidden">
+
+        <div class="row" id="userProfile">
           <h2 id="usernameProfile">Username</h2>
           <img class="profilePicture" src="" alt="">
           <h3 id="favFoods">Favorite Foods</h3>
           <h3 id="favMovies">Favorite Movies</h3>
         </div>
-        <div class="column" id="dateLog">
+
+        <div class="row" id="dateLog">
           <nav>
-            <a href="" id="publicDates">All Dates</a>
+            <a href="" id="publicDates" class="active">All Dates</a>
             <a href="" id="myDates">My Dates</a>
+          </nav>
           <ul id="dates"></ul>
         </div>
+
       </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>

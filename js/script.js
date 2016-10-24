@@ -249,11 +249,11 @@ function loadDate(date) {
   var dateString = date.date;
   var month = dateString.split(' ')[1];
   var day = dateString.split(' ')[2];
-  var monthAndDay = $('<p />').text(month + " " + day);
-  var user = $('<p />').text(date.username);
-  var moviePic = $('<img />').attr('src', date.moviePicture);
-  var recipePic = $('<img />').attr('src', date.recipePicture);
+  var monthAndDay = $('<span />').text(month + " " + day);
+  var user = $('<p />').text(date.username).append(monthAndDay);
+  var moviePic = $('<img />').attr('src', date.moviePicture).addClass('moviePicture');
+  var recipePic = $('<img />').attr('src', date.recipePicture).addClass('recipePicture');
 
-  li.append(profPic, user, monthAndDay, moviePic, recipePic);
+  li.append(profPic, user, moviePic, recipePic);
   $('#dates').prepend(li);
 }
