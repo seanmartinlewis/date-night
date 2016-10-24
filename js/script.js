@@ -103,7 +103,7 @@ function showProfile() {
   // Inject user info into page and show it
   $('#username').text(localStorage.getItem('username'));
   $('#profilePicture').attr('src', localStorage.getItem('profilePicture'));
-  $('#userInfo').removeClass('hidden')();
+  $('#userInfo').removeClass('hidden');
 }
 
 function getRecipeResults(json) {

@@ -72,10 +72,6 @@ a#login {
   float: right;
 }
 
-div#userInfo {
-	display: none;
-}
-
 /*----SPLASH PAGE STYLES----*/
 h1 {
   font-family: 'Mogra', cursive;
