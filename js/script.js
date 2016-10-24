@@ -93,30 +93,33 @@ function showProfile() {
   $('#userInfo').show();
 }
 
-function getRecipeResults() {
-  // console.log('recipes');
-  // var food = "tacos";
-  // var url = "http://www.recipepuppy.com/api/?q=" + food;
-  //
-  // $.ajax({
-  //   url: url
-  // }).done(function () {
-  //   console.log(data);
-  //   showRecipe();
-  // })
+function getRecipeResults(json) {
+  console.log(json);
+  var pageNum = Math.round((Math.random()*4)+1)
+  var food = 'chicken';
+  $.ajax({
+    url: "http://www.recipepuppy.com/api/?i=" + food + "&p=" + pageNum,
+    jsonp: "callback",
+    dataType: "jsonp",
+    jsonpCallback: "logResults"
+  }).done(function (response) {
+    var randomIndex = (Math.round(Math.random()*10));
+    var randomRecipe = response.results[randomIndex];
+     console.log(response);
+     showRecipe(randomRecipe);
+  })
 }
 
-function showRecipe() {
-  // console.log('recipe');
-  // var recipeTitle = data.title;
-  // var recipeIngredients = data.ingredients;
-  // var recipePic = data.thumbnail;
-  //
-  // $('#recipeName').text(recipeTitle);
-  // $('#recipePic').attr('src',recipePic);
-  // $('#recipeIngredients').text(recipeIngredients);
-}
+function showRecipe(recipe) {
+  console.log('recipe');
+  var recipeTitle = recipe.title;
+  var recipeIngredients = recipe.ingredients;
+  var recipePic = recipe.thumbnail;
 
+  $('#recipeName').text(recipeTitle);
+  $('#recipePic').attr('src',recipePic);
+  $('#recipeIngredients').text(recipeIngredients);
+}
 function getMovieResults() {
   console.log('movies');
 
