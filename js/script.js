@@ -38,11 +38,11 @@ $(document).ready(function () {
   $('#dateMaker').on('click', function (e) {
     e.preventDefault();
 
-    getMovieResults();
-    getRecipeResults();
-
     $('#splashPage').addClass('hidden');
     $('#resultsPage').removeClass('hidden');
+
+    getMovieResults();
+    getRecipeResults();
   });
 
   // Load dates from database
@@ -219,12 +219,13 @@ function saveDateResults() {
 
 function loadDates(event) {
     event.preventDefault();
-    $.ajax(){
-    url: "https://thawing-sea-85558.herokuapp.com/profile",
-    headers: {
-      'Authorization': 'Bearer ' + localStorage.getItem('idToken')
-    }
-    }.done(function(data){
+    $.ajax({
+      url: "https://thawing-sea-85558.herokuapp.com/profile",
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+      }
+    })
+  .done(function(data){
       data.forEach(function(datum){
         loadDate(datum)
       })
