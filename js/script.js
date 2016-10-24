@@ -45,35 +45,12 @@ $(document).ready(function () {
     $('#resultsPage').removeClass('hidden');
   });
 
+  // Load dates from database
   $('#myDates').on("click", loadDates);
-
-});
-//end docuready
-
-  function loadDates(event) {
-    event.preventDefault();
-    $.ajax(){
-    url: "https://thawing-sea-85558.herokuapp.com/profile",
-    headers: {
-      'Authorization': 'Bearer ' + localStorage.getItem('idToken')
-    }
-    }.done(function(data){
-      data.forEach(function(datum){
-        loadDate(datum)
-      })
-    })
-  }
-  function loadDate(data) {
-    console.log(data);
-    var li = $('<li />')
-    li.text(data)
-    $('#dates').append(li);
-  }
 
   // New API call on "Get Next" button click on results page
   $('#getRecipe').on('click', getRecipeResults);
   $('#getMovie').on('click', getMovieResults);
-
 
   // save the date results to database
   $('#saveResults').on('click', function() {
@@ -239,3 +216,24 @@ function saveDateResults() {
     console.log(errorThrown);
   });
 }
+
+function loadDates(event) {
+    event.preventDefault();
+    $.ajax(){
+    url: "https://thawing-sea-85558.herokuapp.com/profile",
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+    }
+    }.done(function(data){
+      data.forEach(function(datum){
+        loadDate(datum)
+      })
+    })
+  }
+
+function loadDate(data) {
+    console.log(data);
+    var li = $('<li />')
+    li.text(data)
+    $('#dates').append(li);
+  }
