@@ -56,7 +56,6 @@ $(document).ready(function () {
   $('#saveResults').on('click', function() {
     if(isLoggedIn()) {
       saveDateResults();
-      loadDates();
     } else {
       alert('You have to be logged in to save your date!');
     }
@@ -216,8 +215,13 @@ function saveDateResults() {
     }
   })
   .done(function (response) {
+
+    // Hide results page and take users to profile page
     $('#resultsPage').addClass('hidden');
     $('#profilePage').removeClass('hidden');
+
+    // Reload list of dates to dispaly in profile feed
+    loadDates();
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
@@ -234,11 +238,11 @@ function loadDates() {
     })
   .done(function(response){
     response.forEach(function(date){
-      loadDate(date);
+    loadDate(date);
     });
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
-      console.log(errorThrown);
+    console.log(errorThrown);
   });
 }
 
