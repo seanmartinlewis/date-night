@@ -38,11 +38,31 @@ $(document).ready(function () {
   $('#dateMaker').on('click', function (e) {
     e.preventDefault();
 
-    $('#splashPage').addClass('hidden');
-    $('#resultsPage').removeClass('hidden');
+    if ($('#movieGenre option:selected').val() === 'default' || $('#foodType option:selected').val() === 'default') {
+      alert('must pick Genre and Type');
 
-    getMovieResults(e);
-    getRecipeResults(e);
+    } else {
+      $('#splashPage').addClass('hidden');
+      $('#resultsPage').removeClass('hidden');
+
+      getMovieResults(e);
+      getRecipeResults(e);
+      
+      if (!isLoggedIn()) {
+      var x = confirm("You will only be able to save your dates if you are signed in. Are you sure you want to continue?")
+      if (x) {
+
+      } else {
+        $('#splashPage').removeClass('hidden');
+        $('#resultsPage').addClass('hidden');
+        // getMovieResults.stop();
+        // getRecipeResults.stop();
+      }
+    }
+    }
+
+
+
   });
 
   // New API call on "Get Next" button click on results page
@@ -183,7 +203,6 @@ function getMovieResults(e) {
     url: 'https://api.themoviedb.org/3/discover/movie?api_key=63efd94ec261de399db1622ddbc1ab22&language=en-US&sort_by=popularity.desc&include_adult=false&page=' + pageNum + '&with_genres=' + genreCode
   })
   .done(function(data) {
-
     // Of the 20 results, randomly select a movie
     var randomIndex = (Math.round(Math.random()*20));
     var randomMovie = data.results[randomIndex];
