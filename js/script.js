@@ -41,14 +41,17 @@ $(document).ready(function () {
     $('#splashPage').addClass('hidden');
     $('#resultsPage').removeClass('hidden');
 
-    getMovieResults();
-    getRecipeResults();
+    getMovieResults(e);
+    getRecipeResults(e);
   });
 
   // New API call on "Get Next" button click on results page
-  $('#getRecipe').on('click', getRecipeResults);
-  $('#getMovie').on('click', getMovieResults);
-
+  $('#getRecipe').on('click', function(e) {
+    getRecipeResults(e);
+  });
+  $('#getMovie').on('click', function(e){
+    getMovieResults(e);
+  });
   // save the date results to database
   $('#saveResults').on('click', function() {
     if(isLoggedIn()) {
@@ -118,9 +121,16 @@ function showProfile() {
   $('#userInfo').removeClass('hidden');
 }
 
-function getRecipeResults(json) {
-
-  var userSelection = $('#foodType option:selected').val();
+function getRecipeResults(e) {
+  var clicked = $(e.currentTarget);
+  var clickedId = clicked.attr("id");
+  var userSelection;
+  // Get user selected genre and associated genre code
+  if(clickedId === "dateMaker"){
+    userSelection = $('#foodType option:selected').val();
+  } else if(clickedId === "getRecipe"){
+    userSelection = $('#nextFoodType option:selected').val();
+  }
   var pageNum = Math.round((Math.random()*4)+1)
   var food = userSelection;
   $.ajax({
@@ -146,8 +156,17 @@ function showRecipe(recipe) {
   $('#recipePic').attr('src',recipePic);
   $('#recipeIngredients').text(recipeIngredients);
 }
-function getMovieResults() {
-
+function getMovieResults(e) {
+  var clicked = $(e.currentTarget);
+  var clickedId = clicked.attr("id");
+  var userSelection;
+  // Get user selected genre and associated genre code
+  if(clickedId === "dateMaker"){
+    userSelection = $('#movieGenre option:selected').val();
+  } else if(clickedId === "getMovie"){
+    userSelection = $('#nextMovieGenre option:selected').val();
+  }
+  console.log(userSelection);
   // Create object with "official genre codes"
   var genreObj = {
     'horror': '27',
@@ -155,9 +174,6 @@ function getMovieResults() {
     'drama': '18',
     'romance': '10749'
   };
-
-  // Get user selected genre and associated genre code
-  var userSelection = $('#movieGenre option:selected').val();
   var genreCode = genreObj[userSelection];
 
   // Results are returned by page num; get results from a random page between 1 and 21
