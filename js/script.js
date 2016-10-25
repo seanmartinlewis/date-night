@@ -47,7 +47,7 @@ $(document).ready(function () {
 
       getMovieResults(e);
       getRecipeResults(e);
-      
+
       if (!isLoggedIn()) {
       var x = confirm("You will only be able to save your dates if you are signed in. Are you sure you want to continue?")
       if (x) {
@@ -55,14 +55,9 @@ $(document).ready(function () {
       } else {
         $('#splashPage').removeClass('hidden');
         $('#resultsPage').addClass('hidden');
-        // getMovieResults.stop();
-        // getRecipeResults.stop();
       }
     }
-    }
-
-
-
+  }
   });
 
   // New API call on "Get Next" button click on results page
