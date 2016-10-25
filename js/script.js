@@ -80,8 +80,18 @@ $(document).ready(function () {
     loadDates();
   });
 
+  // Filter feed results to display user's own dates
   $('#myDates').on("click", loadDates);
   $('#publicDates').on("click", loadDates);
+
+  // Allow user to delete their dates
+  $(document).on('click', 'a.delete', function (e) {
+    if(!isUsersDate(e)) {
+      alert("You can't delete other people's dates!");
+    } else {
+      deleteDate(e);
+    }
+  });
 
   // Log out via Auth0 when logout button clicked
   $('#logout').on('click', logOut);
@@ -277,7 +287,7 @@ function loadDates(event) {
 }
 
 function loadDate(date) {
-  var li = $('<li />');
+  var li = $('<li />').data('userId', date.userId);
   var profPic = $('<img />').attr('src', date.profilePicture).addClass('profilePicture');
   var dateString = date.date;
   var month = dateString.split(' ')[1];
@@ -286,7 +296,24 @@ function loadDate(date) {
   var user = $('<p />').text(date.username).append(monthAndDay);
   var moviePic = $('<img />').attr('src', date.moviePicture).addClass('moviePicture');
   var recipePic = $('<img />').attr('src', date.recipePicture).addClass('recipePicture');
+  var deleteButton = $('<a />').attr('href', '#').text('Delete').addClass('delete');
 
-  li.append(profPic, user, moviePic, recipePic);
+  li.append(profPic, user, moviePic, recipePic, deleteButton);
   $('#dates').prepend(li);
+}
+
+function isUsersDate(e) {
+  var li = $(e.currentTarget).parent('li');
+  var liUser = li.data('userId');
+  var userId = localStorage.getItem('userId');
+
+  return liUser === userId;
+}
+
+function deleteDate(e) {
+  e.preventDefault();
+  var li = $(e.currentTarget).parent('li');
+
+  //When Ajax call is done...
+  li.remove();
 }
