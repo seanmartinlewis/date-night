@@ -56,7 +56,6 @@ $(document).ready(function () {
   $('#saveResults').on('click', function() {
     if(isLoggedIn()) {
       saveDateResults();
-      loadDates();
     } else {
       alert('You have to be logged in to save your date!');
     }
@@ -74,6 +73,8 @@ $(document).ready(function () {
     $('#profilePage').removeClass('hidden');
     $('#resultsPage').addClass('hidden');
     $('#splashPage').addClass('hidden');
+
+    loadDates();
   });
 
   // Log out via Auth0 when logout button clicked
@@ -112,13 +113,13 @@ function showProfile() {
   $('#login').addClass('hidden');
 
   // Inject user info into page and show it
-  $('#username').text(localStorage.getItem('username'));
-  $('#profilePicture').attr('src', localStorage.getItem('profilePicture'));
+  $('.username').text(localStorage.getItem('username'));
+  $('.profilePicture').attr('src', localStorage.getItem('profilePicture'));
   $('#userInfo').removeClass('hidden');
 }
 
 function getRecipeResults(json) {
-  console.log(json);
+
   var userSelection = $('#foodType option:selected').val();
   var pageNum = Math.round((Math.random()*4)+1)
   var food = userSelection;
@@ -130,13 +131,13 @@ function getRecipeResults(json) {
   }).done(function (response) {
     var randomIndex = (Math.round(Math.random()*10));
     var randomRecipe = response.results[randomIndex];
-     console.log(response);
+
      showRecipe(randomRecipe);
   })
 }
 
 function showRecipe(recipe) {
-  console.log('recipe');
+
   var recipeTitle = recipe.title;
   var recipeIngredients = recipe.ingredients;
   var recipePic = recipe.thumbnail;
@@ -146,7 +147,6 @@ function showRecipe(recipe) {
   $('#recipeIngredients').text(recipeIngredients);
 }
 function getMovieResults() {
-  console.log('movies');
 
   // Create object with "official genre codes"
   var genreObj = {
@@ -172,7 +172,6 @@ function getMovieResults() {
     var randomIndex = (Math.round(Math.random()*20));
     var randomMovie = data.results[randomIndex];
 
-    console.log(randomMovie);
     showMovie(randomMovie);
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
@@ -216,8 +215,13 @@ function saveDateResults() {
     }
   })
   .done(function (response) {
+
+    // Hide results page and take users to profile page
     $('#resultsPage').addClass('hidden');
     $('#profilePage').removeClass('hidden');
+
+    // Reload list of dates to dispaly in profile feed
+    loadDates();
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
@@ -234,23 +238,26 @@ function loadDates() {
     })
   .done(function(response){
     response.forEach(function(date){
-      loadDate(date);
+    loadDate(date);
     });
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
-      console.log(errorThrown);
+    console.log(errorThrown);
   });
 }
 
 function loadDate(date) {
 
   var li = $('<li />');
-  var profPic = $('<img />').attr('src', date.profilePicture);
-  var dayAndTime = $('<p />').text(date.date);
-  var user = $('<p />').text(date.username);
-  var moviePic = $('<img />').attr('src', date.moviePicture);
-  var recipePic = $('<img />').attr('src', date.recipePicture);
+  var profPic = $('<img />').attr('src', date.profilePicture).addClass('profilePicture');
+  var dateString = date.date;
+  var month = dateString.split(' ')[1];
+  var day = dateString.split(' ')[2];
+  var monthAndDay = $('<span />').text(month + " " + day);
+  var user = $('<p />').text(date.username).append(monthAndDay);
+  var moviePic = $('<img />').attr('src', date.moviePicture).addClass('moviePicture');
+  var recipePic = $('<img />').attr('src', date.recipePicture).addClass('recipePicture');
 
-  li.append(profPic, dayAndTime, user, moviePic, recipePic);
+  li.append(profPic, user, moviePic, recipePic);
   $('#dates').prepend(li);
 }

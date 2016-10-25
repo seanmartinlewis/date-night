@@ -80,7 +80,7 @@ div.dropdown-toggle {
 	min-width: 70px;
 }
 
-header img {
+img.profilePicture {
 	width: 70px;
 	height: 70px;
 }
@@ -109,7 +109,7 @@ input#dateMaker {
 }
 
 /*----RESULTS PAGE STYLES----*/
-.row {
+.container {
   width: 80%;
 	min-height: 500px;
   margin: 0 auto;
@@ -134,6 +134,59 @@ button#saveResults {
   margin: 0 auto;
 }
 
-div#splashPage {
+/*----PROFILE PAGE STYLES----*/
+.row {
+	background: rgb(120,120,120);
+	margin: 30px 0;
+	padding: 30px;
+}
 
+#dateLog nav {
+	text-align: center;
+}
+
+#dateLog nav a {
+	display: inline-block;
+	font-size: 30px;
+	color: white;
+	margin: 0 30px;
+}
+
+#dateLog nav a:hover {
+	text-decoration: none;
+}
+
+.active {
+	background-color: blue;
+}
+
+ul#dates li {
+	text-align: left;
+	margin: 30px 0;
+}
+
+ul#dates img.profilePicture {
+	display: inline-block;
+	float:left;
+	margin-right: 30px;
+}
+
+ul#dates img.recipePicture {
+	height: 200px;
+	width: auto;
+}
+
+ul#dates img.moviePicture {
+	height: 200px;
+	width: auto;
+	margin-right: 30px;
+}
+
+ul#dates p {
+	margin-bottom: 30px;
+}
+
+ul#dates span {
+	display: inline-block;
+	margin: 0 30px;
 }
