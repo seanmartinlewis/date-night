@@ -105,6 +105,7 @@ $(document).ready(function () {
 
   // Allow user to delete their dates
   $(document).on('click', 'a.delete', function (e) {
+
     if(!isUsersDate(e)) {
       alert("You can't delete other people's dates!");
     } else {
@@ -283,15 +284,15 @@ function loadDates(event) {
   var link;
   var userId = localStorage.getItem('userId');
   if(activeTab.attr("id")=== "myDates"){
-    link = "https://thawing-sea-85558.herokuapp.com/profile/" + userId;
+    link = "https://thawing-sea-85558.herokuapp.com/profile" + userId;
   } else {
     link = "https://thawing-sea-85558.herokuapp.com/profile";
   }
     $.ajax({
-      url: link
-      // headers: {
-      //   'Authorization': 'Bearer ' + localStorage.getItem('idToken')
-      // }
+      url: link,
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+      }
     })
   .done(function(response){
     $('#dates').empty();
@@ -325,7 +326,7 @@ function loadDate(date) {
 
 function isUsersDate(e) {
   var li = $(e.currentTarget).parent('li');
-  var liUser = li.data('userId');
+  var liUser = li.attr('data-userId');
   var userId = localStorage.getItem('userId');
 
   return liUser === userId;
@@ -334,7 +335,19 @@ function isUsersDate(e) {
 function deleteDate(e) {
   e.preventDefault();
   var li = $(e.currentTarget).parent('li');
+  var dateId = li.attr('data-dateId');
 
-  //When Ajax call is done...
-  li.remove();
+  $.ajax({
+    url: "https://thawing-sea-85558.herokuapp.com/profile/" + dateId,
+    method: 'DELETE',
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+    }
+  })
+    .done(function (response) {
+      loadDates();
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown);
+    })
 }
