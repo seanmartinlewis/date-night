@@ -284,9 +284,9 @@ function loadDates(event) {
   var link;
   var userId = localStorage.getItem('userId');
   if(activeTab.attr("id")=== "myDates"){
-    link = "https://thawing-sea-85558.herokuapp.com/profile" + userId;
+    link = "https://thawing-sea-85558.herokuapp.com/profile/" + userId;
   } else {
-    link = "https://thawing-sea-85558.herokuapp.com/profile";
+    link = "https://thawing-sea-85558.herokuapp.com/profile/";
   }
     $.ajax({
       url: link,
