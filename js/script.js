@@ -43,6 +43,9 @@ $(document).ready(function () {
 
     getMovieResults(e);
     getRecipeResults(e);
+
+    $('#movieGenre').selectpicker('val', 'default');
+    $('#foodType').selectpicker('val', 'default');
   });
 
   // New API call on "Get Next" button click on results page
