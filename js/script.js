@@ -287,7 +287,10 @@ function loadDates(event) {
 }
 
 function loadDate(date) {
-  var li = $('<li />').data('userId', date.userId);
+  var li = $('<li />').attr({
+    "data-userId": date.userId,
+    "data-dateId": date._id
+  })
   var profPic = $('<img />').attr('src', date.profilePicture).addClass('profilePicture');
   var dateString = date.date;
   var month = dateString.split(' ')[1];
