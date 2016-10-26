@@ -85,14 +85,23 @@ $(document).ready(function () {
   $('#getMovie').on('click', function(e){
     getMovieResults(e);
   });
-  // save the date results to database
+
+  // Open modal to let users add comments to date before saving
   $('#saveResults').on('click', function() {
     if(isLoggedIn()) {
-      saveDateResults();
+      showModal('saveForm');
     } else {
       // showModal();
       alert('You have to be logged in to save your date!');
     }
+  });
+
+  // save the date results to database
+  $('#nameAndComment').on('submit', function (e) {
+    e.preventDefault();
+    $('.modal').css('display', 'none');
+    $('#saveForm').css('display', 'none');
+    saveDateResults();
   });
 
   // Return users to splash page when they click on the logo
