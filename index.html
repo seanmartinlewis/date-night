@@ -110,11 +110,42 @@
         </div>
 
       </div>
-      <form class="nameAndComment" action="index.html" method="post">
-        <input id="nightName" type="text" name="name" value="" placeholder="Name Your Night"><br>
-        <textarea id="nightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea><br>
-        <input type="submit" name="name" value="SUBMIT">
-      </form>
+
+    <!-- MODALS -->
+    <!-- The Modal -->
+    <div class="modal">
+
+      <!-- Splash Page - check for user selection -->
+      <div class="modal-content" id="emptySelection">
+        <span class="close">x</span>
+        <p>How can we make you a date if we don't know what you like?</p>
+      </div>
+
+      <!-- Splash Page - check for user logged in -->
+      <div class="modal-content" id="notLoggedIn">
+        <span class="close">x</span>
+        <p>Just so you know, if you aren't signed in, then you won't be able to save the awesome date we're about to make for you. You've been warned! Click below just to see how it works:</p>
+        <button class="continue">Continue without logging in</button>
+        <button class="goBack">Go back and log in</button>
+      </div>
+
+      <!-- Profile page - check before deleting -->
+      <div class="modal-content" id="deleteCheck">
+        <span class="close">x</span>
+        <p>You are about to delete this date forever! This action cannot be undone. Just making sure you know what you're doing. Click continue to wipe it out of existence!</p>
+        <button class="continue">Continue</button>
+        <button class="goBack">Go back</button>
+      </div>
+
+      <div class="modal-content" id="deleteCheck">
+        <span class="close">x</span>
+        <form class="nameAndComment" action="index.html" method="post">
+          <input id="nightName" type="text" name="name" value="" placeholder="Name Your Night"><br>
+          <textarea id="nightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea><br>
+          <input type="submit" name="name" value="SUBMIT">
+        </form>
+      </div>
+    </div>
 
     </main>
     <footer>

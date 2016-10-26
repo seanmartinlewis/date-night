@@ -38,33 +38,44 @@ $(document).ready(function () {
   $('#dateMaker').on('click', function (e) {
     e.preventDefault();
 
-    if ($('#movieGenre option:selected').val() === 'default' || $('#foodType option:selected').val() === 'default') {
-      alert('must pick Genre and Type');
+    // Check that users have selected a genre and food type
+    var emptySelection = $('#movieGenre option:selected').val() === 'default' || $('#foodType option:selected').val() === 'default';
 
+    if (emptySelection) {
+      // You must pick Genre and Type
+      showModal('emptySelection');
+    } else if (!emptySelection && !isLoggedIn()) {
+      // You must be logged in to save a date
+      $('#emptySelection').css('display', 'none');
+      showModal('notLoggedIn');
+
+      // If user chooses to continue anyway...
+      $('#notLoggedIn .continue').on('click', function () {
+
+        // Hide modal
+        $('#notLoggedIn').css('display', 'none');
+        $('.modal').css('display', 'none');
+
+        // Reveal results page, load results
+        $('#splashPage').addClass('hidden');
+        $('#resultsPage').removeClass('hidden');
+
+        getMovieResults(e);
+        getRecipeResults(e);
+      });
+
+      $('#notLoggedIn .goBack').on('click', function () {
+        $('.modal').css('display', 'none');
+      });
     } else {
+      // Reveal results page, load results
       $('#splashPage').addClass('hidden');
       $('#resultsPage').removeClass('hidden');
+
+      getMovieResults(e);
+      getRecipeResults(e);
       setNextDropdowns();
-      // getMovieResults(e);
-      // getRecipeResults(e);
-
-      if (!isLoggedIn()) {
-      var x = confirm("You will only be able to save your dates if you are signed in. Are you sure you want to continue?")
-      if (x) {
-
-      } else {
-        $('#splashPage').removeClass('hidden');
-        $('#resultsPage').addClass('hidden');
-      }
     }
-  }
-
-    getMovieResults(e);
-    getRecipeResults(e);
-
-    $('#movieGenre').selectpicker('val', 'default');
-    $('#foodType').selectpicker('val', 'default');
-
   });
 
   // New API call on "Get Next" button click on results page
@@ -79,6 +90,7 @@ $(document).ready(function () {
     if(isLoggedIn()) {
       saveDateResults();
     } else {
+      // showModal();
       alert('You have to be logged in to save your date!');
     }
   });
@@ -105,11 +117,37 @@ $(document).ready(function () {
 
   // Allow user to delete their dates
   $(document).on('click', 'a.delete', function (e) {
-    var x = confirm("Once you delete a date, it is gone forever. Are you sure  you want to continue?")
-    if (x) {
-      deleteDate(e);
-    }
+    e.preventDefault();
+    var li = $(e.currentTarget).parent('li');
+
+    showModal('deleteCheck');
+
+    $('#deleteCheck .continue').on('click', function () {
+      $('.modal').css('display', 'none');
+      deleteDate(li);
+    });
+
+    $('#deleteCheck .goBack').on('click', function () {
+      $('.modal').css('display', 'none');
+      $('#deleteCheck').css('display', 'none');
+    });
   });
+
+  // Modal functionality
+
+  // When the user clicks on <span> (x), close the modal
+  $('span.close').on('click', function() {
+      $('.modal').css('display', 'none');
+  });
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(e) {
+    var modal = document.getElementById('myModal');
+
+    if (e.target == modal) {
+        $(modal).css('display', "none");
+    }
+  };
 
   // Log out via Auth0 when logout button clicked
   $('#logout').on('click', logOut);
@@ -176,6 +214,9 @@ function getRecipeResults(e) {
     var randomRecipe = response[randomIndex];
 
     showRecipe(randomRecipe);
+
+    // Reset food type selector on splash page
+    $('#foodType').selectpicker('val', 'default');
   })
 }
 
@@ -222,6 +263,9 @@ function getMovieResults(e) {
     var randomMovie = data.results[randomIndex];
 
     showMovie(randomMovie);
+
+    // Reset movie genre selector on slpash page
+    $('#movieGenre').selectpicker('val', 'default');
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
@@ -344,10 +388,9 @@ function isUsersDate(e) {
   return liUser === userId;
 }
 
-function deleteDate(e) {
-  e.preventDefault();
-  var li = $(e.currentTarget).parent('li');
-  var dateId = li.attr('data-dateId');
+function deleteDate(target) {
+
+  var dateId = target.attr('data-dateId');
 
   $.ajax({
     url: "https://thawing-sea-85558.herokuapp.com/profile/" + dateId,
@@ -364,12 +407,15 @@ function deleteDate(e) {
     })
 }
 
+function showModal(id) {
+  $('.modal').css('display', 'block');
+  $('#' + id).css('display', 'block');
+}
+
 function setNextDropdowns() {
-  console.log('working');
   var previousGenre = $('#movieGenre option:selected').val()
   var previousFood = $('#foodType option:selected').val()
 
   $('#nextMovieGenre').selectpicker('val', previousGenre);
   $('#nextFoodType').selectpicker('val', previousFood);
-
 }
