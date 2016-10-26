@@ -45,8 +45,8 @@ $(document).ready(function () {
       $('#splashPage').addClass('hidden');
       $('#resultsPage').removeClass('hidden');
 
-      getMovieResults(e);
-      getRecipeResults(e);
+      // getMovieResults(e);
+      // getRecipeResults(e);
 
       if (!isLoggedIn()) {
       var x = confirm("You will only be able to save your dates if you are signed in. Are you sure you want to continue?")
@@ -164,30 +164,32 @@ function getRecipeResults(e) {
   } else if(clickedId === "getRecipe"){
     userSelection = $('#nextFoodType option:selected').val();
   }
-  var pageNum = Math.round((Math.random()*4)+1)
-  var food = userSelection;
-  $.ajax({
-    url: "http://www.recipepuppy.com/api/?q=" + food + "&p=" + pageNum,
-    jsonp: "callback",
-    dataType: "jsonp",
-    jsonpCallback: "logResults"
-  }).done(function (response) {
-    var randomIndex = (Math.round(Math.random()*10));
-    var randomRecipe = response.results[randomIndex];
 
-     showRecipe(randomRecipe);
+  console.log(userSelection);
+
+  $.ajax({
+    url: "https://thawing-sea-85558.herokuapp.com/recipes/" + userSelection
+    // jsonp: "callback",
+    // dataType: "jsonp",
+    // jsonpCallback: "logResults"
+  }).done(function (response) {
+
+    var randomIndex = (Math.round(Math.random()*10));
+    var randomRecipe = response[randomIndex];
+
+    showRecipe(randomRecipe);
   })
 }
 
 function showRecipe(recipe) {
 
   var recipeTitle = recipe.title;
-  var recipeIngredients = recipe.ingredients;
-  var recipePic = recipe.thumbnail;
+  var recipeDescription = recipe.description;
+  var recipePic = recipe.recipePicture;
 
   $('#recipeName').text(recipeTitle);
   $('#recipePic').attr('src',recipePic);
-  $('#recipeIngredients').text(recipeIngredients);
+  $('#recipeIngredients').text(recipeDescription);
 }
 function getMovieResults(e) {
   var clicked = $(e.currentTarget);
@@ -199,7 +201,7 @@ function getMovieResults(e) {
   } else if(clickedId === "getMovie"){
     userSelection = $('#nextMovieGenre option:selected').val();
   }
-  console.log(userSelection);
+
   // Create object with "official genre codes"
   var genreObj = {
     'horror': '27',
