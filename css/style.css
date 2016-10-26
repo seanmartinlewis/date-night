@@ -105,8 +105,9 @@ div#userInfo {
 }
 
 /*----SPLASH PAGE STYLES----*/
-#splashPage {
-	background-color: black;
+body {
+	background-image: url("../photos/heart.jpg");
+	background-size: auto;
 }
 h1 {
   font-family: 'Mogra', cursive;
@@ -172,7 +173,8 @@ main {
 }
 
 #dateLog.row {
-	background: rgb(130,7,29);
+	background: rgb(0,0,0);
+	opacity: 0.85;
 	/*margin: 10px 0;*/
 	padding: 40px;
 	width: 100%;
