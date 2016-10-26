@@ -105,10 +105,8 @@ $(document).ready(function () {
 
   // Allow user to delete their dates
   $(document).on('click', 'a.delete', function (e) {
-
-    if(!isUsersDate(e)) {
-      alert("You can't delete other people's dates!");
-    } else {
+    var x = confirm("Once you delete a date, it is gone forever. Are you sure  you want to continue?")
+    if (x) {
       deleteDate(e);
     }
   });
