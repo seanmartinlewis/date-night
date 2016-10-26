@@ -92,6 +92,8 @@ $(document).ready(function () {
 
     hideModals();
     saveDateResults();
+    $('#nightName').val('');
+    $('#nightDescription').val('');
   });
 
   // Return users to splash page when they click on the logo
