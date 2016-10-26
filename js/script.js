@@ -91,8 +91,7 @@ $(document).ready(function () {
     if(isLoggedIn()) {
       showModal('saveForm');
     } else {
-      // showModal();
-      alert('You have to be logged in to save your date!');
+      showModal('stillNotLoggedIn');
     }
   });
 
