@@ -76,6 +76,7 @@
           <img id="recipePic" src="#" alt="recipe thumbnail" />
           <h3 id="recipeName"></h3>
           <p id="recipeIngredients"></p>
+          <a target="_blank" id="recipeURL">GET RECIPE HERE</a>
           <select id="nextFoodType" class="selectpicker">
             <option value="default">Choose a type of food</option>
             <option value="Mediterranean">Mediterranean</option>
@@ -109,6 +110,12 @@
         </div>
 
       </div>
+      <form class="nameAndComment" action="index.html" method="post">
+        <input id="nightName" type="text" name="name" value="" placeholder="Name Your Night"><br>
+        <textarea id="nightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea><br>
+        <input type="submit" name="name" value="SUBMIT">
+      </form>
+
     </main>
     <footer>
       <p>
