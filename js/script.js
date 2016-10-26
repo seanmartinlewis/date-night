@@ -46,12 +46,14 @@ $(document).ready(function () {
       showModal('emptySelection');
     } else if (!emptySelection && !isLoggedIn()) {
       // You must be logged in to save a date
+      $('#emptySelection').css('display', 'none');
       showModal('notLoggedIn');
 
       // If user chooses to continue anyway...
-      $('#continue').on('click', function () {
+      $('#notLoggedIn .continue').on('click', function () {
 
         // Hide modal
+        $('#notLoggedIn').css('display', 'none');
         $('.modal').css('display', 'none');
 
         // Reveal results page, load results
@@ -62,7 +64,7 @@ $(document).ready(function () {
         getRecipeResults(e);
       });
 
-      $('#goBack').on('click', function () {
+      $('#notLoggedIn .goBack').on('click', function () {
         $('.modal').css('display', 'none');
       })
     }
@@ -107,13 +109,20 @@ $(document).ready(function () {
 
   // Allow user to delete their dates
   $(document).on('click', 'a.delete', function (e) {
+    e.preventDefault();
+    var li = $(e.currentTarget).parent('li');
 
-    if(!isUsersDate(e)) {
-      // showModal();
-      alert("You can't delete other people's dates!");
-    } else {
-      deleteDate(e);
-    }
+    showModal('deleteCheck');
+
+    $('#deleteCheck .continue').on('click', function () {
+      $('.modal').css('display', 'none');
+      deleteDate(li);
+    });
+
+    $('#deleteCheck .goBack').on('click', function () {
+      $('.modal').css('display', 'none');
+      $('#deleteCheck').css('display', 'none');
+    });
   });
 
   // Modal functionality
@@ -359,10 +368,9 @@ function isUsersDate(e) {
   return liUser === userId;
 }
 
-function deleteDate(e) {
-  e.preventDefault();
-  var li = $(e.currentTarget).parent('li');
-  var dateId = li.attr('data-dateId');
+function deleteDate(target) {
+
+  var dateId = target.attr('data-dateId');
 
   $.ajax({
     url: "https://thawing-sea-85558.herokuapp.com/profile/" + dateId,
