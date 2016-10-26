@@ -168,13 +168,13 @@ function getRecipeResults(e) {
   console.log(userSelection);
 
   $.ajax({
-    url: "http://localhost:3000/recipes/" + userSelection
+    url: "https://thawing-sea-85558.herokuapp.com/recipes/" + userSelection
     // jsonp: "callback",
     // dataType: "jsonp",
     // jsonpCallback: "logResults"
   }).done(function (response) {
 
-    var randomIndex = (Math.round(Math.random()));
+    var randomIndex = (Math.round(Math.random()*10));
     var randomRecipe = response[randomIndex];
 
     showRecipe(randomRecipe);
