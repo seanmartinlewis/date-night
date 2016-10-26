@@ -360,11 +360,9 @@ function loadDate(date) {
     "data-dateId": date._id
   })
   var profPic = $('<img />').attr('src', date.profilePicture).addClass('profilePicture');
-  var dateString = date.date;
-  var month = dateString.split(' ')[1];
-  var day = dateString.split(' ')[2];
-  var monthAndDay = $('<span />').text(month + " " + day);
-  var user = $('<p />').text(date.username).append(monthAndDay);
+  var timeAgo = timeCalculator(date);
+  var time = $('<span />').text(timeAgo);
+  var user = $('<p />').text(date.username).append(time);
   var moviePic = $('<img />').attr('src', date.moviePicture).addClass('moviePicture');
   var recipePic = $('<img />').attr('src', date.recipePicture).addClass('recipePicture');
   var deleteButton = $('<a />').attr('href', '#').text('Delete').addClass('delete');
@@ -377,6 +375,25 @@ function loadDate(date) {
 var userId = localStorage.getItem('userId');
     if(userId !== date.userId) {
     $(deleteButton).addClass("hidden");
+  }
+}
+
+function timeCalculator(date) {
+  var date = new Date(date.date);
+  var currentTime = new Date();
+  var difference = (currentTime - date);
+  var hour = Math.round(difference / (60*60*1000));
+  var minute = Math.round(difference / (60*1000));
+  var time = $('<span />');
+
+  if (minute < 1) {
+    return 'Just now';
+  } else if (minute < 2) {
+    return minute + ' minute ago';
+  } else if (minute < 60) {
+    return minute + ' minutes ago';
+  } else {
+    return hour + ' hours ago';
   }
 }
 
