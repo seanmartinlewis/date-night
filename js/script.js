@@ -291,6 +291,7 @@ function saveDateResults() {
   var userId = localStorage.getItem('userId');
   var nightName = $('#nightName').val();
   var nightDescription = $('#nightDescription').val();
+  var recipeLINK = $('#recipeURL').attr('href')
 
   var data = {
     username: username,
@@ -300,7 +301,8 @@ function saveDateResults() {
     profilePicture: profilePicture,
     userId: userId,
     nightName: nightName,
-    nightDescription: nightDescription
+    nightDescription: nightDescription,
+    recipeURL: recipeLINK
   };
 
   $.ajax({
@@ -367,11 +369,13 @@ function loadDate(date) {
   var user = $('<p />').text(date.username).append(monthAndDay);
   var moviePic = $('<img />').attr('src', date.moviePicture).addClass('moviePicture');
   var recipePic = $('<img />').attr('src', date.recipePicture).addClass('recipePicture');
+  var recipeLink = $('<a target="_blank">GET RECIPE</a>').attr('href',date.recipeURL)
   var deleteButton = $('<a />').attr('href', '#').text('Delete').addClass('delete');
   var nightTitle = $('<h3 />').text(date.nightName);
   var nightSummary = $('<p />').text(date.nightDescription);
 
-  li.append(profPic, user, moviePic, recipePic, deleteButton, nightTitle, nightSummary);
+
+  li.append(profPic, user, moviePic, recipePic, deleteButton, nightTitle, nightSummary, recipeLink);
   $('#dates').prepend(li);
 
 var userId = localStorage.getItem('userId');
