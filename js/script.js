@@ -74,6 +74,7 @@ $(document).ready(function () {
 
       getMovieResults(e);
       getRecipeResults(e);
+      setNextDropdowns();
     }
   });
 
@@ -220,14 +221,15 @@ function getRecipeResults(e) {
 }
 
 function showRecipe(recipe) {
-
   var recipeTitle = recipe.title;
   var recipeDescription = recipe.description;
   var recipePic = recipe.recipePicture;
+  var recipeLink = recipe.recipeURL;
 
   $('#recipeName').text(recipeTitle);
   $('#recipePic').attr('src',recipePic);
   $('#recipeIngredients').text(recipeDescription);
+  $('#recipeURL').attr('href',recipeLink);
 }
 function getMovieResults(e) {
   var clicked = $(e.currentTarget);
@@ -287,6 +289,8 @@ function saveDateResults() {
   var recipePicture = $('#recipePic').attr('src');
   var profilePicture = localStorage.getItem('profilePicture');
   var userId = localStorage.getItem('userId');
+  var nightName = $('#nightName').val();
+  var nightDescription = $('#nightDescription').val();
 
   var data = {
     username: username,
@@ -294,7 +298,9 @@ function saveDateResults() {
     moviePicture: moviePicture,
     recipePicture: recipePicture,
     profilePicture: profilePicture,
-    userId: userId
+    userId: userId,
+    nightName: nightName,
+    nightDescription: nightDescription
   };
 
   $.ajax({
@@ -362,9 +368,16 @@ function loadDate(date) {
   var moviePic = $('<img />').attr('src', date.moviePicture).addClass('moviePicture');
   var recipePic = $('<img />').attr('src', date.recipePicture).addClass('recipePicture');
   var deleteButton = $('<a />').attr('href', '#').text('Delete').addClass('delete');
+  var nightTitle = $('<h3 />').text(date.nightName);
+  var nightSummary = $('<p />').text(date.nightDescription);
 
-  li.append(profPic, user, moviePic, recipePic, deleteButton);
+  li.append(profPic, user, moviePic, recipePic, deleteButton, nightTitle, nightSummary);
   $('#dates').prepend(li);
+
+var userId = localStorage.getItem('userId');
+    if(userId !== date.userId) {
+    $(deleteButton).addClass("hidden");
+  }
 }
 
 function isUsersDate(e) {
@@ -397,4 +410,12 @@ function deleteDate(target) {
 function showModal(id) {
   $('.modal').css('display', 'block');
   $('#' + id).css('display', 'block');
+}
+
+function setNextDropdowns() {
+  var previousGenre = $('#movieGenre option:selected').val()
+  var previousFood = $('#foodType option:selected').val()
+
+  $('#nextMovieGenre').selectpicker('val', previousGenre);
+  $('#nextFoodType').selectpicker('val', previousFood);
 }

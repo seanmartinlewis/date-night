@@ -76,6 +76,7 @@
           <img id="recipePic" src="#" alt="recipe thumbnail" />
           <h3 id="recipeName"></h3>
           <p id="recipeIngredients"></p>
+          <a target="_blank" id="recipeURL">GET RECIPE HERE</a>
           <select id="nextFoodType" class="selectpicker">
             <option value="default">Choose a type of food</option>
             <option value="Mediterranean">Mediterranean</option>
@@ -134,6 +135,15 @@
         <p>You are about to delete this date forever! This action cannot be undone. Just making sure you know what you're doing. Click continue to wipe it out of existence!</p>
         <button class="continue">Continue</button>
         <button class="goBack">Go back</button>
+      </div>
+
+      <div class="modal-content" id="deleteCheck">
+        <span class="close">x</span>
+        <form class="nameAndComment" action="index.html" method="post">
+          <input id="nightName" type="text" name="name" value="" placeholder="Name Your Night"><br>
+          <textarea id="nightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea><br>
+          <input type="submit" name="name" value="SUBMIT">
+        </form>
       </div>
     </div>
 
