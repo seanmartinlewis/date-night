@@ -41,40 +41,31 @@ $(document).ready(function () {
     // Check that users have selected a genre and food type
     var emptySelection = $('#movieGenre option:selected').val() === 'default' || $('#foodType option:selected').val() === 'default';
 
+    // If they have not, alert that they must pick Genre and Type
     if (emptySelection) {
-      // You must pick Genre and Type
       showModal('emptySelection');
-    } else if (!emptySelection && !isLoggedIn()) {
-      // You must be logged in to save a date
-      $('#emptySelection').css('display', 'none');
+    }
+
+    // If they have entered a selection but are not logged in, alert that they will be unable to save results
+    else if (!emptySelection && !isLoggedIn()) {
       showModal('notLoggedIn');
 
       // If user chooses to continue anyway...
       $('#notLoggedIn .continue').on('click', function () {
 
-        // Hide modal
-        $('#notLoggedIn').css('display', 'none');
-        $('.modal').css('display', 'none');
+        loadResultsPage(e);
 
-        // Reveal results page, load results
-        $('#splashPage').addClass('hidden');
-        $('#resultsPage').removeClass('hidden');
-
-        getMovieResults(e);
-        getRecipeResults(e);
       });
 
+      // If user chooses to go back, hide modal
       $('#notLoggedIn .goBack').on('click', function () {
-        $('.modal').css('display', 'none');
+        hideModals();
       });
-    } else {
-      // Reveal results page, load results
-      $('#splashPage').addClass('hidden');
-      $('#resultsPage').removeClass('hidden');
+    }
 
-      getMovieResults(e);
-      getRecipeResults(e);
-      setNextDropdowns();
+    // If they are logged in and have properly selected genres, send them to the results page
+    else {
+      loadResultsPage(e);
     }
   });
 
@@ -98,8 +89,8 @@ $(document).ready(function () {
   // save the date results to database
   $('#nameAndComment').on('submit', function (e) {
     e.preventDefault();
-    $('.modal').css('display', 'none');
-    $('#saveForm').css('display', 'none');
+
+    hideModals();
     saveDateResults();
   });
 
@@ -131,13 +122,12 @@ $(document).ready(function () {
     showModal('deleteCheck');
 
     $('#deleteCheck .continue').on('click', function () {
-      $('.modal').css('display', 'none');
+      hideModals();
       deleteDate(li);
     });
 
     $('#deleteCheck .goBack').on('click', function () {
-      $('.modal').css('display', 'none');
-      $('#deleteCheck').css('display', 'none');
+      hideModals();
     });
   });
 
@@ -145,7 +135,7 @@ $(document).ready(function () {
 
   // When the user clicks on <span> (x), close the modal
   $('span.close').on('click', function() {
-      $('.modal').css('display', 'none');
+    hideModals();
   });
 
   // When the user clicks anywhere outside of the modal, close it
@@ -153,7 +143,7 @@ $(document).ready(function () {
     var modal = document.getElementById('myModal');
 
     if (e.target == modal) {
-        $(modal).css('display', "none");
+      hideModals();
     }
   };
 
@@ -196,6 +186,22 @@ function showProfile() {
   $('.username').text(localStorage.getItem('username'));
   $('.profilePicture').attr('src', localStorage.getItem('profilePicture'));
   $('#userInfo').removeClass('hidden');
+}
+
+function loadResultsPage(e) {
+  // Hide modals
+  hideModals();
+
+  // Reveal results page
+  $('#splashPage').addClass('hidden');
+  $('#resultsPage').removeClass('hidden');
+
+  // Set dropdowns on results page to same categories previously selected
+  setNextDropdowns();
+
+  // Load results
+  getMovieResults(e);
+  getRecipeResults(e);
 }
 
 function getRecipeResults(e) {
@@ -437,8 +443,37 @@ function deleteDate(target) {
 }
 
 function showModal(id) {
+
+  // Show parent modal background
   $('.modal').css('display', 'block');
-  $('#' + id).css('display', 'block');
+
+  // Loop through modals
+  var modalArray = $('.modal').children('.modal-content');
+
+  for(var i=0; i<modalArray.length; i++) {
+    var modal = modalArray[i];
+    var modalId = $(modal).attr('id');
+
+    // If the target modal, show it; hide all others
+    if($(modal).attr('id') === id) {
+      $(modal).css('display', 'block');
+    } else {
+      $(modal).css('display', 'none');
+    }
+  }
+}
+
+function hideModals() {
+  // Hide parent modal background
+  $('.modal').css('display', 'none');
+
+  // Loop through modal windows and hide them all
+  var modalArray = $('.modal').children('.modal-content');
+
+  for(var i=0; i<modalArray.length; i++) {
+    var modal = modalArray[i];
+    $(modal).css('display', 'none');
+    }
 }
 
 function setNextDropdowns() {

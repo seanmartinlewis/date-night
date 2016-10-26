@@ -55,6 +55,8 @@ table {
 /*----BEGIN CUSTOM STYLES----*/
 /*---------------------------*/
 
+
+/*----GLOBAL STYLES----*/
 .hidden {
 	display: none;
 }
@@ -75,7 +77,13 @@ table {
 
 /*-----HEADER STYLES-----*/
 header {
-  padding: 30px;
+  padding: 10px;
+}
+
+#logo {
+	cursor: pointer;
+	width: 100px;
+	height: auto;
 }
 
 a {
@@ -136,16 +144,37 @@ input#dateMaker {
 div.column {
   display: inline-block;
 	height: 500px;
-  width: 48%;
-	overflow: scroll;
+  width: 47%;
   text-align: center;
   padding: 30px;
   background-color: black;
 }
 
+div#movieResults {
+	float: left;
+}
+
+div#recipeResults {
+	float: right;
+}
+
 h2 {
   font-size: 30px;
+	margin-bottom: 20px;
 }
+
+/*div.columnContainer {
+	position: relative;
+}
+
+div.columnMain {
+	overflow: scroll;
+}
+
+div.columnFooter {
+	position: absolute;
+	bottom: 0;
+}*/
 
 #resultsPage img {
 	width: 40%;
