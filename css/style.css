@@ -129,6 +129,11 @@ h2 {
   font-size: 30px;
 }
 
+#resultsPage img {
+	width: 40%;
+	height: auto;
+}
+
 button#saveResults {
   display: block;
   margin: 0 auto;

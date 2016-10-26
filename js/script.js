@@ -66,7 +66,14 @@ $(document).ready(function () {
 
       $('#notLoggedIn .goBack').on('click', function () {
         $('.modal').css('display', 'none');
-      })
+      });
+    } else {
+      // Reveal results page, load results
+      $('#splashPage').addClass('hidden');
+      $('#resultsPage').removeClass('hidden');
+
+      getMovieResults(e);
+      getRecipeResults(e);
     }
   });
 
