@@ -38,33 +38,34 @@ $(document).ready(function () {
   $('#dateMaker').on('click', function (e) {
     e.preventDefault();
 
-    if ($('#movieGenre option:selected').val() === 'default' || $('#foodType option:selected').val() === 'default') {
-      alert('must pick Genre and Type');
+    // Check that users have selected a genre and food type
+    var emptySelection = $('#movieGenre option:selected').val() === 'default' || $('#foodType option:selected').val() === 'default';
 
-    } else {
-      $('#splashPage').addClass('hidden');
-      $('#resultsPage').removeClass('hidden');
+    if (emptySelection) {
+      // You must pick Genre and Type
+      showModal('emptySelection');
+    } else if (!emptySelection && !isLoggedIn()) {
+      // You must be logged in to save a date
+      showModal('notLoggedIn');
 
-      // getMovieResults(e);
-      // getRecipeResults(e);
+      // If user chooses to continue anyway...
+      $('#continue').on('click', function () {
 
-      if (!isLoggedIn()) {
-      var x = confirm("You will only be able to save your dates if you are signed in. Are you sure you want to continue?")
-      if (x) {
+        // Hide modal
+        $('.modal').css('display', 'none');
 
-      } else {
-        $('#splashPage').removeClass('hidden');
-        $('#resultsPage').addClass('hidden');
-      }
+        // Reveal results page, load results
+        $('#splashPage').addClass('hidden');
+        $('#resultsPage').removeClass('hidden');
+
+        getMovieResults(e);
+        getRecipeResults(e);
+      });
+
+      $('#goBack').on('click', function () {
+        $('.modal').css('display', 'none');
+      })
     }
-  }
-
-    getMovieResults(e);
-    getRecipeResults(e);
-
-    $('#movieGenre').selectpicker('val', 'default');
-    $('#foodType').selectpicker('val', 'default');
-
   });
 
   // New API call on "Get Next" button click on results page
@@ -79,6 +80,7 @@ $(document).ready(function () {
     if(isLoggedIn()) {
       saveDateResults();
     } else {
+      // showModal();
       alert('You have to be logged in to save your date!');
     }
   });
@@ -107,11 +109,28 @@ $(document).ready(function () {
   $(document).on('click', 'a.delete', function (e) {
 
     if(!isUsersDate(e)) {
+      // showModal();
       alert("You can't delete other people's dates!");
     } else {
       deleteDate(e);
     }
   });
+
+  // Modal functionality
+
+  // When the user clicks on <span> (x), close the modal
+  $('span.close').on('click', function() {
+      $('.modal').css('display', 'none');
+  });
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(e) {
+    var modal = document.getElementById('myModal');
+
+    if (e.target == modal) {
+        $(modal).css('display', "none");
+    }
+  };
 
   // Log out via Auth0 when logout button clicked
   $('#logout').on('click', logOut);
@@ -178,6 +197,9 @@ function getRecipeResults(e) {
     var randomRecipe = response[randomIndex];
 
     showRecipe(randomRecipe);
+
+    // Reset food type selector on splash page
+    $('#foodType').selectpicker('val', 'default');
   })
 }
 
@@ -223,6 +245,9 @@ function getMovieResults(e) {
     var randomMovie = data.results[randomIndex];
 
     showMovie(randomMovie);
+
+    // Reset movie genre selector on slpash page
+    $('#movieGenre').selectpicker('val', 'default');
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
@@ -286,9 +311,9 @@ function loadDates(event) {
   var link;
   var userId = localStorage.getItem('userId');
   if(activeTab.attr("id")=== "myDates"){
-    link = "https://thawing-sea-85558.herokuapp.com/profile" + userId;
+    link = "https://thawing-sea-85558.herokuapp.com/profile/" + userId;
   } else {
-    link = "https://thawing-sea-85558.herokuapp.com/profile";
+    link = "https://thawing-sea-85558.herokuapp.com/profile/";
   }
     $.ajax({
       url: link,
@@ -352,4 +377,9 @@ function deleteDate(e) {
     .fail(function (jqXHR, textStatus, errorThrown) {
       console.log(errorThrown);
     })
+}
+
+function showModal(id) {
+  $('.modal').css('display', 'block');
+  $('#' + id).css('display', 'block');
 }
