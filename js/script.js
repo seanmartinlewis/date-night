@@ -324,6 +324,11 @@ function loadDate(date) {
 
   li.append(profPic, user, moviePic, recipePic, deleteButton);
   $('#dates').prepend(li);
+
+var userId = localStorage.getItem('userId');
+    if(userId !== date.userId) {
+    $(deleteButton).addClass("hidden");
+  }
 }
 
 function isUsersDate(e) {
