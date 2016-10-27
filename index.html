@@ -146,12 +146,21 @@
       </div>
 
       <!-- Results Page - customize night form -->
-      <div class="modal-content" id="saveForm">
+      <div class="modal-content" id="saveModal">
         <span class="close">x</span>
-        <form id="nameAndComment">
+        <form id="saveForm">
           <input id="nightName" type="text" placeholder="Name Your Night">
           <textarea id="nightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
           <input id="saveDate" type="submit" value="Save your night!">
+        </form>
+      </div>
+
+      <!-- Profile Page - update night form -->
+      <div class="modal-content" id="updateModal">
+        <span class="close">x</span>
+        <form id="updateForm">
+          <input id="newNightName" type="text" placeholder="Name Your Night">
+          <textarea id="newNightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
           <input id="updateNight" type="submit" value="Update">
         </form>
       </div>
@@ -163,8 +172,6 @@
         <button class="continue">Continue</button>
         <button class="goBack">Go back</button>
       </div>
-
-
     </div>
 
     </main>

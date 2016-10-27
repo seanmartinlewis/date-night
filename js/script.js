@@ -80,14 +80,14 @@ $(document).ready(function () {
   // Open modal to let users add comments to date before saving
   $('#saveResults').on('click', function() {
     if(isLoggedIn()) {
-      showModal('saveForm');
+      showModal('saveModal');
     } else {
       showModal('stillNotLoggedIn');
     }
   });
 
   // save the date results to database
-  $('#nameAndComment').on('submit', function (e) {
+  $('#saveForm').on('submit', function (e) {
     e.preventDefault();
 
     hideModals();
@@ -139,13 +139,27 @@ $(document).ready(function () {
 
     // Get the li associated with edit and current nightName and nightDescription
     var li = $(e.currentTarget).parent('li');
+    var dateId = li.attr('data-dateId');
     var currentNightName = li.find('.nightName').text();
     var currentNightDescription = li.find('.nightDescription').text();
 
     // Set edit form fields to current name and description values
-    $('#nightName').val(currentNightName);
-    $('#nightDescription').val(currentNightDescription);
-    showModal('saveForm');
+    $('#newNightName').val(currentNightName);
+    $('#newNightDescription').val(currentNightDescription);
+
+    // Attach dateId as data attr to form to access later
+    $('#updateForm').attr('data-dateId', dateId);
+    showModal('updateModal');
+  });
+
+  // When update modal form is submitted...
+  $('#updateForm').on('submit', function (e) {
+    e.preventDefault();
+    var dateId = $('#updateForm').attr('data-dateId');
+
+    // Hide modals and send updates to database
+    hideModals();
+    updateDateResults(dateId);
   });
 
   // Modal functionality
@@ -355,6 +369,30 @@ function saveDateResults() {
   })
   .fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
+  });
+}
+
+function updateDateResults(id) {
+
+  var data = {
+    nightName: $('#newNightName').val(),
+    nightDescription: $('#newNightDescription').val()
+  };
+
+  $.ajax({
+    url: 'https://thawing-sea-85558.herokuapp.com/profile/' + id,
+    data: data,
+    method: 'PUT',
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+    }
+  })
+  .done(function (response) {
+    // Reset the form fields
+    $('#newNightName').val('');
+    $('#newNightDescription').val('');
+    
+    loadDates();
   });
 }
 
