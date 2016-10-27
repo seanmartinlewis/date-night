@@ -35,7 +35,7 @@
   <!-- SPLASH PAGE -->
 
       <div id="splashPage">
-        <img src="photos/dateheader1.png" alt="date night" />
+        <img id="h1" src="photos/datehead1.png" alt="date night" />
         <form>
           <select id="movieGenre" class="selectpicker">
             <option id="main" value="default">Choose a movie genre</option>
@@ -56,13 +56,17 @@
     </div>
 
   <!-- RESULTS PAGE -->
-
-    <div id="resultsPage" class="container hidden">
+  <div id="resultsPage" class="container hidden">
+    <div class="pageContent clearfix">
       <div id="movieResults" class="column">
-        <h2>Movie Results</h2>
+        <div class="columnHeader">
+          <h2 id="movieTitle"></h2>
+        </div>
+        <div class="columnMain">
           <img id="moviePic" src="#" alt="movie thumbnail" />
-          <h3 id="movieTitle"></h3>
           <p id="movieSummary"></p>
+        </div>
+        <div class="columnFooter">
           <select id="nextMovieGenre" class="selectpicker">
             <option value="default">Choose a movie genre</option>
             <option value="horror">Horror</option>
@@ -72,12 +76,18 @@
           </select>
           <button id="getMovie">Get Next</button>
         </div>
-        <div id="recipeResults" class="column">
-          <h2>Recipe Results</h2>
+      </div>
+      <div id="recipeResults" class="column">
+        <div class="columnHeader">
+          <h2 id="recipeName"></h2>
+        </div>
+        <div class="columnMain">
           <img id="recipePic" src="#" alt="recipe thumbnail" />
-          <h3 id="recipeName"></h3>
           <p id="recipeIngredients"></p>
           <a target="_blank" id="recipeURL">GET RECIPE HERE</a>
+        </div>
+        <div class="columnFooter">
+        <div class="resultsForm">
           <select id="nextFoodType" class="selectpicker">
             <option value="default">Choose a type of food</option>
             <option value="Mediterranean">Mediterranean</option>
@@ -86,9 +96,14 @@
             <option value="Italian">Italian</option>
           </select>
           <button id="getRecipe">Get Next</button>
+        </div>
+        </div>
       </div>
+    </div>
+    <div class="pageFooter">
       <button id="saveResults">Save</button>
     </div>
+  </div>
 
 
   <!-- PROFILE PAGE -->
