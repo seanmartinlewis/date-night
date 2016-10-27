@@ -29,12 +29,12 @@
         </div>
       </div>
     </header>
-    <main>
+  <main>
 
   <!-- SPLASH PAGE -->
 
-      <div id="splashPage">
-        <h1>date night</h1>
+    <div id="splashPage">
+      <h1>date night</h1>
         <form>
           <select id="movieGenre" class="selectpicker">
             <option id="main" value="default">Choose a movie genre</option>
@@ -52,65 +52,53 @@
           </select>
           <input id="dateMaker" type="submit" value="Make My Date">
         </form>
-      </div>
+    </div>
 
   <!-- RESULTS PAGE -->
 
-      <div id="resultsPage" class="container hidden">
-        <div id="movieResults" class="column">
-          <h2>Movie Results</h2>
-          <div class="columnContainer">
-            <div class="columnMain">
-              <img id="moviePic" src="#" alt="movie thumbnail" />
-              <h3 id="movieTitle"></h3>
-              <p id="movieSummary"></p>
-            </div>
-            <div class="columnFooter">
-              <select id="nextMovieGenre" class="selectpicker">
-                <option value="default">Choose a movie genre</option>
-                <option value="horror">Horror</option>
-                <option value="comedy">Comedy</option>
-                <option value="drama">Drama</option>
-                <option value="romance">Romance</option>
-              </select>
-              <button id="getMovie">Get Next</button>
-            </div>
-          </div>
+    <div id="resultsPage" class="container hidden">
+      <div id="movieResults" class="column">
+        <h2>Movie Results</h2>
+          <img id="moviePic" src="#" alt="movie thumbnail" />
+          <h3 id="movieTitle"></h3>
+          <p id="movieSummary"></p>
+          <select id="nextMovieGenre" class="selectpicker">
+            <option value="default">Choose a movie genre</option>
+            <option value="horror">Horror</option>
+            <option value="comedy">Comedy</option>
+            <option value="drama">Drama</option>
+            <option value="romance">Romance</option>
+          </select>
+          <button id="getMovie">Get Next</button>
         </div>
         <div id="recipeResults" class="column">
           <h2>Recipe Results</h2>
-          <div class="columnMain">
-            <img id="recipePic" src="#" alt="recipe thumbnail" />
-            <h3 id="recipeName"></h3>
-            <p id="recipeIngredients"></p>
-            <a target="_blank" id="recipeURL">GET RECIPE HERE</a>
-          </div>
-          <div class="columnFooter">
-            <select id="nextFoodType" class="selectpicker">
-              <option value="default">Choose a type of food</option>
-              <option value="Mediterranean">Mediterranean</option>
-              <option value="Mexican">Mexican</option>
-              <option value="Asian">Asian</option>
-              <option value="Italian">Italian</option>
-            </select>
-            <button id="getRecipe">Get Next</button>
-          </div>
-        </div>
-        <button id="saveResults">Save</button>
+          <img id="recipePic" src="#" alt="recipe thumbnail" />
+          <h3 id="recipeName"></h3>
+          <p id="recipeIngredients"></p>
+          <a target="_blank" id="recipeURL">GET RECIPE HERE</a>
+          <select id="nextFoodType" class="selectpicker">
+            <option value="default">Choose a type of food</option>
+            <option value="Mediterranean">Mediterranean</option>
+            <option value="Mexican">Mexican</option>
+            <option value="Asian">Asian</option>
+            <option value="Italian">Italian</option>
+          </select>
+          <button id="getRecipe">Get Next</button>
       </div>
+      <button id="saveResults">Save</button>
+    </div>
 
 
   <!-- PROFILE PAGE -->
 
       <div id="profilePage" class="container hidden">
-
         <!-- <div class="row" id="userProfile">
           <h2 class="username"></h2>
           <img class="profilePicture" src="" alt="">
           <h3 id="favFoods">Favorite Foods</h3>
           <h3 id="favMovies">Favorite Movies</h3>
         </div> -->
-
         <div class="row" id="dateLog">
           <nav>
             <a href="" id="publicDates" class="active profileTab">All Dates</a>
@@ -118,19 +106,16 @@
           </nav>
           <ul id="dates"></ul>
         </div>
-
       </div>
 
     <!-- MODALS -->
     <!-- Modal background -->
-    <div class="modal">
-
+    <div class="modal" id="modalBackground">
       <!-- Splash Page - check for user selection -->
       <div class="modal-content" id="emptySelection">
         <span class="close">x</span>
         <p>How can we make you a date if we don't know what you like?</p>
       </div>
-
       <!-- Splash Page - check for user logged in -->
       <div class="modal-content" id="notLoggedIn">
         <span class="close">x</span>
@@ -138,13 +123,11 @@
         <button class="continue">Continue without logging in</button>
         <button class="goBack">Go back and log in</button>
       </div>
-
       <!-- Results Page - second logged in notice -->
       <div class="modal-content" id="stillNotLoggedIn">
         <span class="close">x</span>
         <p>Hey! That movie looks awesome, but we told you you had to log in to save this! You should go ahead and sign up now so this doesn't happen again!</p>
       </div>
-
       <!-- Results Page - customize night form -->
       <div class="modal-content" id="saveForm">
         <span class="close">x</span>
@@ -162,24 +145,14 @@
         <button class="continue">Continue</button>
         <button class="goBack">Go back</button>
       </div>
-
-
     </div>
-
-    </main>
-    <footer>
-      <p>
-        &copy; wdiatx8
-      </p>
-      <p>
-        recipe api copyright
-      </p>
-      <p>
-        This product uses the TMDb API but is not endorsed or certified by TMDb.
-      </p>
-      <img src="photos/themoviedb.png" alt="The Movie DC logo" />
-
-    </footer>
+  </main>
+  <footer>
+    <p>&copy; wdiatx8</p>
+    <p>recipe api copyright</p>
+    <p>This product uses the TMDb API but is not endorsed or certified by TMDb.</p>
+    <img src="photos/themoviedb.png" alt="The Movie DC logo" />
+  </footer>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
