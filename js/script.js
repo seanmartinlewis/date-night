@@ -373,8 +373,7 @@ function saveDateResults() {
   });
 }
 
-function updateDateRe
-sults(id) {
+function updateDateResults(id) {
 
   var data = {
     nightName: $('#newNightName').val(),
