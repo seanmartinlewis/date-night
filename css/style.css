@@ -130,21 +130,49 @@ header p {
 	padding: 10px;
 }
 
+ul.dropdown-menu {
+	padding: 20px;
+	font-size: 20px;
+	margin-right: 20px;
+	position: absolute;;
+}
+header .username {
+	color: white;
+	background-color: rgba(185, 68, 89, .85);
+	padding: 10px;
+	font-size: 20px;
+	position: relative;
+	border-radius: 10px;
+	font-family: helvetica;
+}
+
 /*----SPLASH PAGE STYLES----*/
 /*#splashPage {
 	background-color: black;
 }*/
 body {
 	background-image: url("../photos/awkward.jpg");
-	background-size: cover;
+	background-size:cover;
+	background-position: center;
 }
-h1 {
+
+#splashPage {
+	width: 80%;
+	margin: 0 auto;
+}
+
+img#h1 {
+	display: block;
+	margin: 0 auto;
+}
+
+/*h1 {
   font-family: 'Mogra', cursive;
   font-size: 100px;
   text-transform: uppercase;
   text-align: center;
   padding: 100px 30px;
-}
+}*/
 
 form {
   text-align: center;
@@ -337,7 +365,7 @@ ul#dateLog {
 
 #dates .moviePicture, #dates .recipePicture {
 	display: inline-block;
-	width: 44%;
+	max-width: 44%;
 	height: 90%;
 }
 
@@ -423,22 +451,6 @@ ul#dateLog {
     color: black;
     text-decoration: none;
     cursor: pointer;
-}
-
-ul.dropdown-menu {
-	padding: 20px;
-	font-size: 20px;
-	margin-right: 20px;
-	position: absolute;;
-}
-header .username {
-	color: white;
-	background-color: rgba(185, 68, 89, .85);
-	padding: 10px;
-	font-size: 20px;
-	position: relative;
-	border-radius: 10px;
-	font-family: helvetica;
 }
 
 /* footer styles */
