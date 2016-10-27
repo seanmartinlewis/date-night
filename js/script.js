@@ -429,22 +429,54 @@ function loadDates(event) {
 function loadDate(date) {
   var li = $('<li />').attr({
     "data-userId": date.userId,
-    "data-dateId": date._id
-  })
+    "data-dateId": date._id,
+    "class": "clearfix"
+  });
+
+  // Create li's direct children
+  var column1 = $('<div />').addClass('column').attr('id', 'column1');
+  var column2 = $('<div />').addClass('column').attr('id', 'column2');
+  var column3 = $('<div />').addClass('column').attr('id', 'column3');
+
+  // Create column1's direct children
+  var userBox = $('<div />').addClass('userBox clearfix');
+  var crud = $('<div />').addClass('crud');
+
+  // Create userBox children
   var profPic = $('<img />').attr('src', date.profilePicture).addClass('profilePicture');
+  var user = $('<p />').text(date.username).addClass('username');
+
   var timeAgo = timeCalculator(date);
-  var time = $('<span />').text(timeAgo);
-  var user = $('<p />').text(date.username).append(time);
-  var moviePic = $('<img />').attr('src', date.moviePicture).addClass('moviePicture');
-  var recipePic = $('<img />').attr('src', date.recipePicture).addClass('recipePicture');
-  var recipeLink = $('<a target="_blank">GET RECIPE</a>').attr('href',date.recipeURL)
+  var time = $('<p />').text(timeAgo);
+
+  // Create crud children
   var deleteButton = $('<a />').attr('href', '#').text('Delete').addClass('delete');
   var editButton = $('<a />').attr('href', '#').text('Edit').addClass('edit');
+
+  // Create column2 children
+  var moviePic = $('<img />').attr('src', date.moviePicture).addClass('moviePicture');
+  var recipePic = $('<img />').attr('src', date.recipePicture).addClass('recipePicture');
+  var recipeLink = $('<p><a target="_blank">GET RECIPE</a></p>').attr('href',date.recipeURL);
+
+  // Create column3 children
   var nightTitle = $('<h3 />').text(date.nightName).addClass('nightName');
   var nightSummary = $('<p />').text(date.nightDescription).addClass('nightDescription');
 
+  // Append userbox children
+  userBox.append(profPic, user, time);
 
-  li.append(profPic, user, moviePic, recipePic, deleteButton, editButton, nightTitle, nightSummary, recipeLink);
+  // Append crud children
+  crud.append(deleteButton, editButton);
+
+  // Append column children
+  column1.append(userBox, crud);
+  column2.append(moviePic, recipePic, recipeLink);
+  column3.append(nightTitle, nightSummary);
+
+  // Append columns to li
+  li.append(column1, column2, column3);
+
+  // Append li to ul
   $('#dates').prepend(li);
 
   // Only show delete and edit buttons on signed in user's own nights

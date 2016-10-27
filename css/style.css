@@ -233,11 +233,6 @@ main {
 	width: 100%;
 }
 
-li {
-	background-color: white;
-
-}
-
 #dateLog.row {
 	background: rgb(0,0,0);
 	opacity: 0.85;
@@ -273,49 +268,78 @@ ul#dateLog {
 	border-radius: 5px;
 }
 
-ul#dates li {
-	text-align: left;
+#dates li {
+	background-color: white;
 	color: black;
-	margin: 30px 0;
-	font-family: 'Helvetica';
-	font-size: 20px;
+	margin-bottom: 20px;
 }
 
-ul#dates img.profilePicture {
+#dates .column {
+	background-color: white;
+}
+
+#column1 {
+	float: left;
+	width: 15%;
+}
+
+#column2 {
+	float: left;
+	width: 60%;
+}
+
+#column3 {
+	float: left;
+	width: 25%;
+	padding-top: 30px;
+}
+
+#dates .moviePicture, #dates .recipePicture {
 	display: inline-block;
-	float:left;
-	margin-right: 30px;
+	width: 44%;
+	height: 100%;
 }
 
-ul#dates img.recipePicture {
-	height: 200px;
-	width: auto;
+#dates .moviePicture {
+	margin-right: 5px;
 }
 
-ul#dates img.moviePicture {
-	height: 200px;
-	width: auto;
-	margin-right: 30px;
+#dates .recipePicture {
+	margin-left: 5px;
 }
 
-ul#dates p {
-	margin-bottom: 30px;
-	color:black;
+#dates .profilePicture {
+	margin: 0 auto 20px auto;
+	width: 123px;
+	height: 123px;
 }
 
-ul#dates span {
+.userBox .username {
+	font-size: 22px;
+	margin-bottom: 10px;
+}
+
+.crud {
+	/*position: fixed;*/
+	/*bottom: 20px;*/
+}
+
+.crud a {
+	text-decoration: none;
 	display: inline-block;
-	margin: 0 30px;
+	margin: 0 20px;
 }
 
-ul#dates h3 {
-	font-weight: bolder;
-	font-size: 30px;
+#column3 h3 {
+	font-size: 36px;
+	font-weight: bold;
+	margin-bottom: 20px;
 }
 
-p.nightDescription {
-	color: black;
+#column3 p {
+	font-size: 24px;
 }
+
 
 /*-----MODAL STYLES-----*/
 
