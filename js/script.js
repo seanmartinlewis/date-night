@@ -93,7 +93,8 @@ $(document).ready(function () {
 
   // Return users to splash page when they click on the logo
   $('#logo').on('click', function () {
-    $('#splashPage').removeClass('hidden');
+    $('#splashPage').removeClass('hidden')
+    $('body').css('background-image', 'url("../photos/awkward.jpg")');
     $('#resultsPage').addClass('hidden');
     $('#profilePage').addClass('hidden');
   });
@@ -101,6 +102,7 @@ $(document).ready(function () {
   // Users can see profile from navigation bar
   $('#showProfile').on('click', function () {
     $('#profilePage').removeClass('hidden');
+    $('body').css('background-image', 'url("../photos/awkward.jpg")')
     $('#resultsPage').addClass('hidden');
     $('#splashPage').addClass('hidden');
 
@@ -291,8 +293,10 @@ function getMovieResults(e) {
   // Get user selected genre and associated genre code
   if(clickedId === "dateMaker"){
     userSelection = $('#movieGenre option:selected').val();
+    toggleBackground(userSelection);
   } else if(clickedId === "getMovie"){
     userSelection = $('#nextMovieGenre option:selected').val();
+    toggleBackground(userSelection);
   }
   // Create object with "official genre codes"
   var genreObj = {
@@ -320,7 +324,21 @@ function getMovieResults(e) {
     console.log(errorThrown);
   });
 }
-
+function toggleBackground(genre) {
+  if (genre === 'horror') {
+    console.log('horror');
+    $('body').css('background-image', 'url("../photos/horror2.jpg")')
+  } else if (genre === 'comedy') {
+    console.log('comedy');
+    $('body').css('background-image', 'url("../photos/comedy.jpg")')
+  } else if (genre === 'drama') {
+    console.log('drama');
+    $('body').css('background-image', 'url("../photos/CivilWarmovie.jpg")')
+  } else if (genre === 'romance') {
+    console.log('romance');
+    $('body').css('background-image', 'url("../photos/romantic.jpg")')
+  }
+}
 //SHOW MOVIE//
 function showMovie(movie) {
   var movieTitle = movie.title;
@@ -366,6 +384,7 @@ function saveDateResults() {
     // Hide results page and take users to profile page
     $('#resultsPage').addClass('hidden');
     $('#profilePage').removeClass('hidden');
+    $('body').css('background-image', 'url("../photos/awkward.jpg")')
     // Reload list of dates to dispaly in profile feed
     loadDates();
   }).fail(function (jqXHR, textStatus, errorThrown) {
