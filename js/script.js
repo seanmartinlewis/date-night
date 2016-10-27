@@ -110,7 +110,16 @@ $(document).ready(function () {
   // Filter feed results to display user's own dates
   $('#myDates').on("click", loadDates);
   $('#publicDates').on("click", loadDates);
-
+  $(document).on('click', '#myDates', function(e){
+    e.preventDefault();
+    $('#myDates').addClass("active");
+    $('#publicDates').removeClass("active");
+  })
+  $(document).on('click', '#publicDates', function(e){
+    e.preventDefault();
+    $('#publicDates').addClass("active");
+    $('#myDates').removeClass("active");
+  })
   // Allow user to delete their dates
   $(document).on('click', 'a.delete', function (e) {
     e.preventDefault();
