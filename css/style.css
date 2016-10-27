@@ -241,11 +241,15 @@ main {
 	width: 100%;
 }
 
-#dateLog nav {
+#dateNav nav {
 	text-align: center;
+	background-color: red;
+	text-decoration: none;
+	padding: 40px;
+	width: 50%;
 }
 
-#dateLog nav a {
+#dateNav nav a {
 	display: inline-block;
 	font-size: 30px;
 	font-family: "Apple Chancery", serif;
@@ -253,12 +257,17 @@ main {
 	margin: 0 30px;
 }
 
+ul#dateLog {
+	background-color: rgb (0,0,0);
+	opacity: 0.85;
+}
+
 #dateLog nav a:hover {
 	text-decoration: none;
 }
 
 .active {
-	background-color: blue;
+	background-color: red;
 }
 
 ul#dates li {
