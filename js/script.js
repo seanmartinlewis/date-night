@@ -444,6 +444,7 @@ function loadDate(date) {
   var nightTitle = $('<h3 />').text(date.nightName).addClass('nightName');
   var nightSummary = $('<p />').text(date.nightDescription).addClass('nightDescription');
 
+
   li.append(profPic, user, moviePic, recipePic, deleteButton, editButton, nightTitle, nightSummary, recipeLink);
   $('#dates').prepend(li);
 
