@@ -133,6 +133,21 @@ $(document).ready(function () {
     });
   });
 
+  // Allow user to edit their dates
+  $(document).on('click', 'a.edit', function (e) {
+    e.preventDefault();
+
+    // Get the li associated with edit and current nightName and nightDescription
+    var li = $(e.currentTarget).parent('li');
+    var currentNightName = li.find('.nightName').text();
+    var currentNightDescription = li.find('.nightDescription').text();
+
+    // Set edit form fields to current name and description values
+    $('#nightName').val(currentNightName);
+    $('#nightDescription').val(currentNightDescription);
+    showModal('saveForm');
+  });
+
   // Modal functionality
 
   // When the user clicks on <span> (x), close the modal
@@ -385,17 +400,20 @@ function loadDate(date) {
   var recipePic = $('<img />').attr('src', date.recipePicture).addClass('recipePicture');
   var recipeLink = $('<a target="_blank">GET RECIPE</a>').attr('href',date.recipeURL)
   var deleteButton = $('<a />').attr('href', '#').text('Delete').addClass('delete');
-  var nightTitle = $('<h3 />').text(date.nightName);
-  var nightSummary = $('<p />').text(date.nightDescription);
+  var editButton = $('<a />').attr('href', '#').text('Edit').addClass('edit');
+  var nightTitle = $('<h3 />').text(date.nightName).addClass('nightName');
+  var nightSummary = $('<p />').text(date.nightDescription).addClass('nightDescription');
 
 
-  li.append(profPic, user, moviePic, recipePic, deleteButton, nightTitle, nightSummary, recipeLink);
+  li.append(profPic, user, moviePic, recipePic, deleteButton, editButton, nightTitle, nightSummary, recipeLink);
   $('#dates').prepend(li);
 
-var userId = localStorage.getItem('userId');
-    if(userId !== date.userId) {
-    $(deleteButton).addClass("hidden");
-  }
+  // Only show delete and edit buttons on signed in user's own nights
+  var userId = localStorage.getItem('userId');
+      if(userId !== date.userId) {
+      $(deleteButton).addClass('hidden');
+      $(editButton).addClass('hidden');
+    }
 }
 
 function timeCalculator(date) {
