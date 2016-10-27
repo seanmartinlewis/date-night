@@ -75,14 +75,14 @@ $(document).ready(function () {
   // Open modal to let users add comments to date before saving
   $('#saveResults').on('click', function() {
     if(isLoggedIn()) {
-      showModal('saveForm');
+      showModal('saveModal');
     } else {
       showModal('stillNotLoggedIn');
     }
   });
 
   // save the date results to database
-  $('#nameAndComment').on('submit', function (e) {
+  $('#saveForm').on('submit', function (e) {
     e.preventDefault();
 
     hideModals();
@@ -138,6 +138,35 @@ $(document).ready(function () {
     $('#deleteCheck .goBack').on('click', function () {
       hideModals();
     });
+  });
+
+  // Allow user to edit their dates
+  $(document).on('click', 'a.edit', function (e) {
+    e.preventDefault();
+
+    // Get the li associated with edit and current nightName and nightDescription
+    var li = $(e.currentTarget).parent('li');
+    var dateId = li.attr('data-dateId');
+    var currentNightName = li.find('.nightName').text();
+    var currentNightDescription = li.find('.nightDescription').text();
+
+    // Set edit form fields to current name and description values
+    $('#newNightName').val(currentNightName);
+    $('#newNightDescription').val(currentNightDescription);
+
+    // Attach dateId as data attr to form to access later
+    $('#updateForm').attr('data-dateId', dateId);
+    showModal('updateModal');
+  });
+
+  // When update modal form is submitted...
+  $('#updateForm').on('submit', function (e) {
+    e.preventDefault();
+    var dateId = $('#updateForm').attr('data-dateId');
+
+    // Hide modals and send updates to database
+    hideModals();
+    updateDateResults(dateId);
   });
 
   // Modal functionality
@@ -344,6 +373,31 @@ function saveDateResults() {
   });
 }
 
+function updateDateRe
+sults(id) {
+
+  var data = {
+    nightName: $('#newNightName').val(),
+    nightDescription: $('#newNightDescription').val()
+  };
+
+  $.ajax({
+    url: 'https://thawing-sea-85558.herokuapp.com/profile/' + id,
+    data: data,
+    method: 'PUT',
+    headers: {
+      'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+    }
+  })
+  .done(function (response) {
+    // Reset the form fields
+    $('#newNightName').val('');
+    $('#newNightDescription').val('');
+
+    loadDates();
+  });
+}
+
 //pull dates from mongo api
 function loadDates(event) {
   if(event){
@@ -386,18 +440,19 @@ function loadDate(date) {
   var recipePic = $('<img />').attr('src', date.recipePicture).addClass('recipePicture');
   var recipeLink = $('<a target="_blank">GET RECIPE</a>').attr('href',date.recipeURL)
   var deleteButton = $('<a />').attr('href', '#').text('Delete').addClass('delete');
-  var nightTitle = $('<h3 />').text(date.nightName);
-  var nightSummary = $('<p />').text(date.nightDescription);
+  var editButton = $('<a />').attr('href', '#').text('Edit').addClass('edit');
+  var nightTitle = $('<h3 />').text(date.nightName).addClass('nightName');
+  var nightSummary = $('<p />').text(date.nightDescription).addClass('nightDescription');
 
-  //append date info to list item
-  li.append(profPic, user, moviePic, recipePic, deleteButton, nightTitle, nightSummary, recipeLink);
+  li.append(profPic, user, moviePic, recipePic, deleteButton, editButton, nightTitle, nightSummary, recipeLink);
   $('#dates').prepend(li);
 
-  //if list item is not users, remove delete option
+  // Only show delete and edit buttons on signed in user's own nights
   var userId = localStorage.getItem('userId');
-    if(userId !== date.userId) {
-    $(deleteButton).addClass("hidden");
-  }
+      if(userId !== date.userId) {
+      $(deleteButton).addClass('hidden');
+      $(editButton).addClass('hidden');
+    }
 }
 //adds time display to each list item
 function timeCalculator(date) {
