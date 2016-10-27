@@ -94,7 +94,7 @@ $(document).ready(function () {
   // Return users to splash page when they click on the logo
   $('#logo').on('click', function () {
     $('#splashPage').removeClass('hidden')
-    $('body').css('background-image', 'url("../photos/awkward.jpg")');
+    // $('body').css('background-image', 'url("../photos/awkward.jpg")');
     $('#resultsPage').addClass('hidden');
     $('#profilePage').addClass('hidden');
   });
@@ -102,7 +102,7 @@ $(document).ready(function () {
   // Users can see profile from navigation bar
   $('#showProfile').on('click', function () {
     $('#profilePage').removeClass('hidden');
-    $('body').css('background-image', 'url("../photos/awkward.jpg")')
+    // $('body').css('background-image', 'url("../photos/awkward.jpg")')
     $('#resultsPage').addClass('hidden');
     $('#splashPage').addClass('hidden');
 
@@ -128,7 +128,7 @@ $(document).ready(function () {
   // Allow user to delete their dates
   $(document).on('click', 'a.delete', function (e) {
     e.preventDefault();
-    var li = $(e.currentTarget).parent('li');
+    var li = $(e.currentTarget).parents('li');
 
     showModal('deleteCheck');
 
@@ -147,7 +147,7 @@ $(document).ready(function () {
     e.preventDefault();
 
     // Get the li associated with edit and current nightName and nightDescription
-    var li = $(e.currentTarget).parent('li');
+    var li = $(e.currentTarget).parents('li');
     var dateId = li.attr('data-dateId');
     var currentNightName = li.find('.nightName').text();
     var currentNightDescription = li.find('.nightDescription').text();
@@ -293,10 +293,10 @@ function getMovieResults(e) {
   // Get user selected genre and associated genre code
   if(clickedId === "dateMaker"){
     userSelection = $('#movieGenre option:selected').val();
-    toggleBackground(userSelection);
+    // toggleBackground(userSelection);
   } else if(clickedId === "getMovie"){
     userSelection = $('#nextMovieGenre option:selected').val();
-    toggleBackground(userSelection);
+    // toggleBackground(userSelection);
   }
   // Create object with "official genre codes"
   var genreObj = {
@@ -324,21 +324,21 @@ function getMovieResults(e) {
     console.log(errorThrown);
   });
 }
-function toggleBackground(genre) {
-  if (genre === 'horror') {
-    console.log('horror');
-    $('body').css('background-image', 'url("../photos/horror2.jpg")')
-  } else if (genre === 'comedy') {
-    console.log('comedy');
-    $('body').css('background-image', 'url("../photos/comedy.jpg")')
-  } else if (genre === 'drama') {
-    console.log('drama');
-    $('body').css('background-image', 'url("../photos/CivilWarmovie.jpg")')
-  } else if (genre === 'romance') {
-    console.log('romance');
-    $('body').css('background-image', 'url("../photos/romantic.jpg")')
-  }
-}
+// function toggleBackground(genre) {
+//   if (genre === 'horror') {
+//     console.log('horror');
+//     $('body').css('background-image', 'url("../photos/horror2.jpg")')
+//   } else if (genre === 'comedy') {
+//     console.log('comedy');
+//     $('body').css('background-image', 'url("../photos/comedy.jpg")')
+//   } else if (genre === 'drama') {
+//     console.log('drama');
+//     $('body').css('background-image', 'url("../photos/CivilWarmovie.jpg")')
+//   } else if (genre === 'romance') {
+//     console.log('romance');
+//     $('body').css('background-image', 'url("../photos/romantic.jpg")')
+//   }
+// }
 //SHOW MOVIE//
 function showMovie(movie) {
   var movieTitle = movie.title;
@@ -475,7 +475,7 @@ function loadDate(date) {
   // Create column2 children
   var moviePic = $('<img />').attr('src', date.moviePicture).addClass('moviePicture');
   var recipePic = $('<img />').attr('src', date.recipePicture).addClass('recipePicture');
-  var recipeLink = $('<p><a target="_blank">GET RECIPE</a></p>').attr('href',date.recipeURL);
+  var recipeLink = $('<a target="_blank">GET RECIPE</a>').attr('href',date.recipeURL);
 
   // Create column3 children
   var nightTitle = $('<h3 />').text(date.nightName).addClass('nightName');
