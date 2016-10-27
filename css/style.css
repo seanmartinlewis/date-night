@@ -107,6 +107,12 @@ a {
   text-decoration: none;
 }
 
+img#logo{
+	width: 110px;
+	height: 110px;
+
+}
+
 a#login {
   float: right;
 }
@@ -120,18 +126,27 @@ div.dropdown-toggle {
 }
 
 img.profilePicture {
-	width: 70px;
-	height: 70px;
+	width: 80px;
+	height: 80px;
+	/*margin-right: 180px;*/
 }
 
 div#userInfo {
 	display: inline-block;
 	float:right;
 }
+header p {
+	display: inline-block;
+	font-size: 20px;
+	padding: 10px;
+}
 
 /*----SPLASH PAGE STYLES----*/
+/*#splashPage {
+	background-color: black;
+}*/
 body {
-	background-image: url("../photos/heart.jpg");
+	background-image: url("../photos/awkward.jpg");
 	background-size: auto;
 }
 h1 {
@@ -320,4 +335,19 @@ ul#dates span {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+ul.dropdown-menu {
+	padding: 20px;
+	font-size: 20px;
+	margin-right: 20px;
+	position: absolute;;
+}
+
+li.username {
+	color: white;
+	background-color: red;
+	padding: 10px;
+	font-size: 30px;
+	position: relative;
 }
