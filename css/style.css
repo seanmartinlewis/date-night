@@ -55,6 +55,8 @@ table {
 /*----BEGIN CUSTOM STYLES----*/
 /*---------------------------*/
 
+
+/*----GLOBAL STYLES----*/
 .hidden {
 	display: none;
 }
@@ -68,6 +70,23 @@ table {
      height: 0;
      }
 .clearfix { display: inline-block; }
+
+footer {
+	position: relative;
+}
+footer p {
+	/*display: inline-block;*/
+	text-align: right;
+	margin-right: 55px;
+}
+footer img {
+	/*display: inline-block;*/
+	width: 50px;
+	height: auto;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
 /* start commented backslash hack \*/
 * html .clearfix { height: 1%; }
 .clearfix { display: block; }
@@ -75,7 +94,13 @@ table {
 
 /*-----HEADER STYLES-----*/
 header {
-  padding: 30px;
+  padding: 10px;
+}
+
+#logo {
+	cursor: pointer;
+	width: 100px;
+	height: auto;
 }
 
 a {
@@ -120,6 +145,10 @@ header p {
 /*#splashPage {
 	background-color: black;
 }*/
+body {
+	background-image: url("../photos/awkward.jpg");
+	background-size: auto;
+}
 h1 {
   font-family: 'Mogra', cursive;
   font-size: 100px;
@@ -148,16 +177,37 @@ input#dateMaker {
 div.column {
   display: inline-block;
 	height: 500px;
-  width: 48%;
-	overflow: scroll;
+  width: 47%;
   text-align: center;
   padding: 30px;
   background-color: black;
 }
 
+div#movieResults {
+	float: left;
+}
+
+div#recipeResults {
+	float: right;
+}
+
 h2 {
   font-size: 30px;
+	margin-bottom: 20px;
 }
+
+/*div.columnContainer {
+	position: relative;
+}
+
+div.columnMain {
+	overflow: scroll;
+}
+
+div.columnFooter {
+	position: absolute;
+	bottom: 0;
+}*/
 
 #resultsPage img {
 	width: 40%;
@@ -184,7 +234,8 @@ main {
 }
 
 #dateLog.row {
-	background: rgb(130,7,29);
+	background: rgb(0,0,0);
+	opacity: 0.85;
 	/*margin: 10px 0;*/
 	padding: 40px;
 	width: 100%;

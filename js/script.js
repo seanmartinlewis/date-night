@@ -6,7 +6,6 @@ var lock = new Auth0Lock('70MGYz88Zh03iWlMSdley6WPlkhSElYs', 'rattlesnakemilk.au
     }
   }
 });
-
 lock.on("authenticated", function(authResult) {
   lock.getProfile(authResult.idToken, function(error, profile) {
     if (error) {
@@ -16,19 +15,16 @@ lock.on("authenticated", function(authResult) {
     localStorage.setItem('username', profile.nickname);
     localStorage.setItem('profilePicture', profile.picture);
     localStorage.setItem('userId', profile.user_id);
-
     showProfile();
   });
 });
 
 // doc ready start
 $(document).ready(function () {
-
   // Check if user is still logged in from previous session
   if (isLoggedIn()) {
     showProfile();
   }
-
   // Trigger Auth0 lock when login button clicked
   $('#login').on('click', function() {
     lock.show();
@@ -38,43 +34,33 @@ $(document).ready(function () {
   $('#dateMaker').on('click', function (e) {
     e.preventDefault();
 
+    //MODALS///
     // Check that users have selected a genre and food type
     var emptySelection = $('#movieGenre option:selected').val() === 'default' || $('#foodType option:selected').val() === 'default';
 
+    // If they have not, alert that they must pick Genre and Type
     if (emptySelection) {
-      // You must pick Genre and Type
       showModal('emptySelection');
-    } else if (!emptySelection && !isLoggedIn()) {
-      // You must be logged in to save a date
-      $('#emptySelection').css('display', 'none');
-      showModal('notLoggedIn');
+    }
 
+    // If they have entered a selection but are not logged in, alert that they will be unable to save results
+    else if (!emptySelection && !isLoggedIn()) {
+      showModal('notLoggedIn');
       // If user chooses to continue anyway...
       $('#notLoggedIn .continue').on('click', function () {
 
-        // Hide modal
-        $('#notLoggedIn').css('display', 'none');
-        $('.modal').css('display', 'none');
-
-        // Reveal results page, load results
-        $('#splashPage').addClass('hidden');
-        $('#resultsPage').removeClass('hidden');
-
-        getMovieResults(e);
-        getRecipeResults(e);
+        loadResultsPage(e);
       });
 
+      // If user chooses to go back, hide modal
       $('#notLoggedIn .goBack').on('click', function () {
-        $('.modal').css('display', 'none');
+        hideModals();
       });
-    } else {
-      // Reveal results page, load results
-      $('#splashPage').addClass('hidden');
-      $('#resultsPage').removeClass('hidden');
+    }
 
-      getMovieResults(e);
-      getRecipeResults(e);
-      setNextDropdowns();
+    // If they are logged in and have properly selected genres, send them to the results page
+    else {
+      loadResultsPage(e);
     }
   });
 
@@ -98,9 +84,11 @@ $(document).ready(function () {
   // save the date results to database
   $('#nameAndComment').on('submit', function (e) {
     e.preventDefault();
-    $('.modal').css('display', 'none');
-    $('#saveForm').css('display', 'none');
+
+    hideModals();
     saveDateResults();
+    $('#nightName').val('');
+    $('#nightDescription').val('');
   });
 
   // Return users to splash page when they click on the logo
@@ -131,13 +119,12 @@ $(document).ready(function () {
     showModal('deleteCheck');
 
     $('#deleteCheck .continue').on('click', function () {
-      $('.modal').css('display', 'none');
+      hideModals();
       deleteDate(li);
     });
 
     $('#deleteCheck .goBack').on('click', function () {
-      $('.modal').css('display', 'none');
-      $('#deleteCheck').css('display', 'none');
+      hideModals();
     });
   });
 
@@ -145,15 +132,15 @@ $(document).ready(function () {
 
   // When the user clicks on <span> (x), close the modal
   $('span.close').on('click', function() {
-      $('.modal').css('display', 'none');
+    hideModals();
   });
 
   // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(e) {
-    var modal = document.getElementById('myModal');
+    var modal = document.getElementById('modalBackground');
 
     if (e.target == modal) {
-        $(modal).css('display', "none");
+      hideModals();
     }
   };
 
@@ -162,14 +149,13 @@ $(document).ready(function () {
 });
 //doc ready end
 
+//check if user is logged in
 function isLoggedIn() {
   var token = localStorage.getItem('idToken')
-
   // Check for valid user token in localStorage
   if (!token) {
     return false;
   }
-
   // Extract jwt expiration from token; check validity
   var encodedPayload = token.split('.')[1];
   var decodedPayload = JSON.parse(atob(encodedPayload));
@@ -179,6 +165,7 @@ function isLoggedIn() {
   return new Date() <= expirationDate;
 }
 
+//log user and remove stored data
 function logOut() {
   localStorage.removeItem('idToken');
   localStorage.removeItem('username');
@@ -187,17 +174,33 @@ function logOut() {
   window.location.href='/';
 }
 
+//PROFILE//
 function showProfile() {
-
   // Hide login button
   $('#login').addClass('hidden');
-
   // Inject user info into page and show it
   $('.username').text(localStorage.getItem('username'));
   $('.profilePicture').attr('src', localStorage.getItem('profilePicture'));
   $('#userInfo').removeClass('hidden');
 }
 
+function loadResultsPage(e) {
+  // Hide modals
+  hideModals();
+
+  // Reveal results page
+  $('#splashPage').addClass('hidden');
+  $('#resultsPage').removeClass('hidden');
+
+  // Set dropdowns on results page to same categories previously selected
+  setNextDropdowns();
+
+  // Load results
+  getMovieResults(e);
+  getRecipeResults(e);
+}
+
+//GET RECIPES//
 function getRecipeResults(e) {
   var clicked = $(e.currentTarget);
   var clickedId = clicked.attr("id");
@@ -208,9 +211,7 @@ function getRecipeResults(e) {
   } else if(clickedId === "getRecipe"){
     userSelection = $('#nextFoodType option:selected').val();
   }
-
-  console.log(userSelection);
-
+  //pull from recipe api
   $.ajax({
     url: "https://thawing-sea-85558.herokuapp.com/recipes/" + userSelection
     // jsonp: "callback",
@@ -228,6 +229,7 @@ function getRecipeResults(e) {
   })
 }
 
+//SHOW RECIPES//
 function showRecipe(recipe) {
   var recipeTitle = recipe.title;
   var recipeDescription = recipe.description;
@@ -239,6 +241,8 @@ function showRecipe(recipe) {
   $('#recipeIngredients').text(recipeDescription);
   $('#recipeURL').attr('href',recipeLink);
 }
+
+//GET MOVIE//
 function getMovieResults(e) {
   var clicked = $(e.currentTarget);
   var clickedId = clicked.attr("id");
@@ -249,7 +253,6 @@ function getMovieResults(e) {
   } else if(clickedId === "getMovie"){
     userSelection = $('#nextMovieGenre option:selected').val();
   }
-
   // Create object with "official genre codes"
   var genreObj = {
     'horror': '27',
@@ -258,14 +261,12 @@ function getMovieResults(e) {
     'romance': '10749'
   };
   var genreCode = genreObj[userSelection];
-
-  // Results are returned by page num; get results from a random page between 1 and 21
+  // Results returned by page num; get results from random page between 1 - 21
   var pageNum = Math.round((Math.random()*10) + 1);
-
+  //Movie API//
   $.ajax({
     url: 'https://api.themoviedb.org/3/discover/movie?api_key=63efd94ec261de399db1622ddbc1ab22&language=en-US&sort_by=popularity.desc&include_adult=false&page=' + pageNum + '&with_genres=' + genreCode
-  })
-  .done(function(data) {
+  }).done(function(data) {
     // Of the 20 results, randomly select a movie
     var randomIndex = (Math.round(Math.random()*20));
     var randomMovie = data.results[randomIndex];
@@ -274,12 +275,12 @@ function getMovieResults(e) {
 
     // Reset movie genre selector on slpash page
     $('#movieGenre').selectpicker('val', 'default');
-  })
-  .fail(function (jqXHR, textStatus, errorThrown) {
+  }).fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
   });
 }
 
+//SHOW MOVIE//
 function showMovie(movie) {
   var movieTitle = movie.title;
   var movieSummary = movie.overview;
@@ -290,6 +291,7 @@ function showMovie(movie) {
   $('#movieSummary').text(movieSummary);
 }
 
+//CRUD Results to mongo and profile
 function saveDateResults() {
   var username = localStorage.getItem('username');
   var date = new Date();
@@ -300,7 +302,6 @@ function saveDateResults() {
   var nightName = $('#nightName').val();
   var nightDescription = $('#nightDescription').val();
   var recipeLINK = $('#recipeURL').attr('href')
-
   var data = {
     username: username,
     date: date,
@@ -312,7 +313,7 @@ function saveDateResults() {
     nightDescription: nightDescription,
     recipeURL: recipeLINK
   };
-
+  //CRUD to MONGO API//
   $.ajax({
     url: 'https://thawing-sea-85558.herokuapp.com/profile',
     data: data,
@@ -320,21 +321,18 @@ function saveDateResults() {
     headers: {
       'Authorization': 'Bearer ' + localStorage.getItem('idToken')
     }
-  })
-  .done(function (response) {
-
+  }).done(function (response) {
     // Hide results page and take users to profile page
     $('#resultsPage').addClass('hidden');
     $('#profilePage').removeClass('hidden');
-
     // Reload list of dates to dispaly in profile feed
     loadDates();
-  })
-  .fail(function (jqXHR, textStatus, errorThrown) {
+  }).fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
   });
 }
 
+//pull dates from mongo api
 function loadDates(event) {
   if(event){
     event.preventDefault();
@@ -352,18 +350,17 @@ function loadDates(event) {
       headers: {
         'Authorization': 'Bearer ' + localStorage.getItem('idToken')
       }
-    })
-  .done(function(response){
+    }).done(function(response){
     $('#dates').empty();
     response.forEach(function(date){
       loadDate(date);
     });
-  })
-  .fail(function (jqXHR, textStatus, errorThrown) {
+  }).fail(function (jqXHR, textStatus, errorThrown) {
     console.log(errorThrown);
   });
 }
 
+//Load a date into dates list
 function loadDate(date) {
   var li = $('<li />').attr({
     "data-userId": date.userId,
@@ -380,16 +377,17 @@ function loadDate(date) {
   var nightTitle = $('<h3 />').text(date.nightName);
   var nightSummary = $('<p />').text(date.nightDescription);
 
-
+  //append date info to list item
   li.append(profPic, user, moviePic, recipePic, deleteButton, nightTitle, nightSummary, recipeLink);
   $('#dates').prepend(li);
 
-var userId = localStorage.getItem('userId');
+  //if list item is not users, remove delete option
+  var userId = localStorage.getItem('userId');
     if(userId !== date.userId) {
     $(deleteButton).addClass("hidden");
   }
 }
-
+//adds time display to each list item
 function timeCalculator(date) {
   var date = new Date(date.date);
   var currentTime = new Date();
@@ -397,7 +395,6 @@ function timeCalculator(date) {
   var hour = Math.round(difference / (60*60*1000));
   var minute = Math.round(difference / (60*1000));
   var time = $('<span />');
-
   if (minute < 1) {
     return 'Just now';
   } else if (minute < 2) {
@@ -409,6 +406,7 @@ function timeCalculator(date) {
   }
 }
 
+//confirm the list item belongs to user
 function isUsersDate(e) {
   var li = $(e.currentTarget).parent('li');
   var liUser = li.attr('data-userId');
@@ -417,30 +415,58 @@ function isUsersDate(e) {
   return liUser === userId;
 }
 
+//gives user ability to delete list item
 function deleteDate(target) {
-
   var dateId = target.attr('data-dateId');
-
+  //CRUD call to mongo api
   $.ajax({
     url: "https://thawing-sea-85558.herokuapp.com/profile/" + dateId,
     method: 'DELETE',
     headers: {
       'Authorization': 'Bearer ' + localStorage.getItem('idToken')
     }
-  })
-    .done(function (response) {
+  }).done(function (response) {
       loadDates();
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
+  }).fail(function (jqXHR, textStatus, errorThrown) {
       console.log(errorThrown);
     })
 }
 
+//MODALS
 function showModal(id) {
+
+  // Show parent modal background
   $('.modal').css('display', 'block');
-  $('#' + id).css('display', 'block');
+
+  // Loop through modals
+  var modalArray = $('.modal').children('.modal-content');
+
+  for(var i=0; i<modalArray.length; i++) {
+    var modal = modalArray[i];
+    var modalId = $(modal).attr('id');
+
+    // If the target modal, show it; hide all others
+    if($(modal).attr('id') === id) {
+      $(modal).css('display', 'block');
+    } else {
+      $(modal).css('display', 'none');
+    }
+  }
 }
 
+function hideModals() {
+  // Hide parent modal background
+  $('.modal').css('display', 'none');
+
+  // Loop through modal windows and hide them all
+  var modalArray = $('.modal').children('.modal-content');
+
+  for(var i=0; i<modalArray.length; i++) {
+    var modal = modalArray[i];
+    $(modal).css('display', 'none');
+    }
+}
+//DROPDOWNS
 function setNextDropdowns() {
   var previousGenre = $('#movieGenre option:selected').val()
   var previousFood = $('#foodType option:selected').val()
