@@ -429,13 +429,14 @@ function loadDates(event) {
 function loadDate(date) {
   var li = $('<li />').attr({
     "data-userId": date.userId,
-    "data-dateId": date._id
+    "data-dateId": date._id,
+    "class": "clearfix"
   });
 
   // Create li's direct children
-  var column1 = $('<div />').addClass('column');
-  var column2 = $('<div />').addClass('column');
-  var column3 = $('<div />').addClass('column');
+  var column1 = $('<div />').addClass('column').attr('id', 'column1');
+  var column2 = $('<div />').addClass('column').attr('id', 'column2');
+  var column3 = $('<div />').addClass('column').attr('id', 'column3');
 
   // Create column1's direct children
   var userBox = $('<div />').addClass('userBox clearfix');
@@ -443,7 +444,7 @@ function loadDate(date) {
 
   // Create userBox children
   var profPic = $('<img />').attr('src', date.profilePicture).addClass('profilePicture');
-  var user = $('<p />').text(date.username);
+  var user = $('<p />').text(date.username).addClass('username');
 
   var timeAgo = timeCalculator(date);
   var time = $('<p />').text(timeAgo);
