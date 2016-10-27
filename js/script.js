@@ -115,11 +115,14 @@ $(document).ready(function () {
     $('#myDates').addClass("active");
     $('#publicDates').removeClass("active");
   })
+
+  //this changes status of tab hover effect
   $(document).on('click', '#publicDates', function(e){
     e.preventDefault();
     $('#publicDates').addClass("active");
     $('#myDates').removeClass("active");
   })
+
   // Allow user to delete their dates
   $(document).on('click', 'a.delete', function (e) {
     e.preventDefault();
