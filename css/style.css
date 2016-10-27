@@ -147,7 +147,7 @@ header p {
 }*/
 body {
 	background-image: url("../photos/awkward.jpg");
-	background-size: auto;
+	background-size: cover;
 }
 h1 {
   font-family: 'Mogra', cursive;
@@ -233,6 +233,11 @@ main {
 	width: 100%;
 }
 
+li {
+	background-color: white;
+
+}
+
 #dateLog.row {
 	background: rgb(0,0,0);
 	opacity: 0.85;
@@ -270,9 +275,10 @@ ul#dateLog {
 
 ul#dates li {
 	text-align: left;
-	color: white;
+	color: black;
 	margin: 30px 0;
-	text-style; sans-serif;
+	font-family: 'Helvetica';
+	font-size: 20px;
 }
 
 ul#dates img.profilePicture {
@@ -294,13 +300,21 @@ ul#dates img.moviePicture {
 
 ul#dates p {
 	margin-bottom: 30px;
-	color:white;
-
+	color:black;
 }
 
 ul#dates span {
 	display: inline-block;
 	margin: 0 30px;
+}
+
+ul#dates h3 {
+	font-weight: bolder;
+	font-size: 30px;
+}
+
+p.description {
+	color: black;
 }
 
 /*-----MODAL STYLES-----*/

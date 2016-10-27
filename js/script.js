@@ -387,7 +387,7 @@ function loadDate(date) {
   var recipeLink = $('<a target="_blank">GET RECIPE</a>').attr('href',date.recipeURL)
   var deleteButton = $('<a />').attr('href', '#').text('Delete').addClass('delete');
   var nightTitle = $('<h3 />').text(date.nightName);
-  var nightSummary = $('<p />').text(date.nightDescription);
+  var nightSummary = $('<p class="description" />').text(date.nightDescription);
 
   //append date info to list item
   li.append(profPic, user, moviePic, recipePic, deleteButton, nightTitle, nightSummary, recipeLink);
