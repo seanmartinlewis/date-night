@@ -2,12 +2,186 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="https://cdn.auth0.com/js/lock/10.4/lock.min.js"></script>
+    <title>Date Night</title>
+    <link href="https://fonts.googleapis.com/css?family=Mogra|Satisfy" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
+    <header class = "clearfix">
+      <img id="logo" src="photos/datelogo.png" alt="logo" />
+      <a id="login" href="#">Login</a>
+      <div id="userInfo" class="hidden">
+        <div class="dropdown">
+          <div class="dropdown-toggle" data-toggle="dropdown">
+            <img class="profilePicture" src="#" alt="" />
+            <p class="username"></p>
+            <span class="caret"></span>
+          </div>
+          <ul class="dropdown-menu">
+            <li class="username"></li>
+            <li><a id="showProfile" href="#">My Profile</a></li>
+            <li><a id="logout" href="#">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+  <main>
 
+  <!-- SPLASH PAGE -->
+
+      <div id="splashPage">
+        <img id="h1" src="photos/datehead1.png" alt="date night" />
+        <form>
+          <select id="movieGenre" class="selectpicker">
+            <option id="main" value="default">Choose a movie genre</option>
+            <option value="horror">Horror</option>
+            <option value="comedy">Comedy</option>
+            <option value="drama">Drama</option>
+            <option value="romance">Romance</option>
+          </select>
+          <select id="foodType" class="selectpicker">
+            <option value="default">Choose a type of food</option>
+            <option value="Mediterranean">Mediterranean</option>
+            <option value="Mexican">Mexican</option>
+            <option value="Asian">Asian</option>
+            <option value="Italian">Italian</option>
+          </select>
+          <input id="dateMaker" type="submit" value="Make My Date">
+        </form>
+    </div>
+
+  <!-- RESULTS PAGE -->
+  <div id="resultsPage" class="container hidden">
+    <div class="pageContent clearfix">
+      <div id="movieResults" class="column">
+        <div class="columnHeader">
+          <h2 id="movieTitle"></h2>
+        </div>
+        <div class="columnMain">
+          <img id="moviePic" src="#" alt="movie thumbnail" />
+          <p id="movieSummary"></p>
+        </div>
+        <div class="columnFooter">
+          <select id="nextMovieGenre" class="selectpicker">
+            <option value="default">Choose a movie genre</option>
+            <option value="horror">Horror</option>
+            <option value="comedy">Comedy</option>
+            <option value="drama">Drama</option>
+            <option value="romance">Romance</option>
+          </select>
+          <button id="getMovie">Get Next</button>
+        </div>
+      </div>
+      <div id="recipeResults" class="column">
+        <div class="columnHeader">
+          <h2 id="recipeName"></h2>
+        </div>
+        <div class="columnMain">
+          <img id="recipePic" src="#" alt="recipe thumbnail" />
+          <p id="recipeIngredients"></p>
+          <a target="_blank" id="recipeURL">GET RECIPE HERE</a>
+        </div>
+        <div class="columnFooter">
+        <div class="resultsForm">
+          <select id="nextFoodType" class="selectpicker">
+            <option value="default">Choose a type of food</option>
+            <option value="Mediterranean">Mediterranean</option>
+            <option value="Mexican">Mexican</option>
+            <option value="Asian">Asian</option>
+            <option value="Italian">Italian</option>
+          </select>
+          <button id="getRecipe">Get Next</button>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="pageFooter">
+      <button id="saveResults">Save</button>
+    </div>
+  </div>
+
+
+  <!-- PROFILE PAGE -->
+
+      <div id="profilePage" class="container hidden">
+        <!-- <div class="row" id="userProfile">
+          <h2 class="username"></h2>
+          <img class="profilePicture" src="" alt="">
+          <h3 id="favFoods">Favorite Foods</h3>
+          <h3 id="favMovies">Favorite Movies</h3>
+        </div> -->
+          <nav id="dateNav">
+            <a href="" id="publicDates" class="active profileTab">All Dates</a>
+            <a href="" id="myDates" class="profileTab">My Dates</a>
+          </nav>
+          <div class="row" id="dateLog">
+          <ul id="dates"></ul>
+        </div>
+      </div>
+
+    <!-- MODALS -->
+    <!-- Modal background -->nav
+    <div class="modal" id="modalBackground">
+      <!-- Splash Page - check for user selection -->
+      <div class="modal-content" id="emptySelection">
+        <span class="close">x</span>
+        <p>How can we make you a date if we don't know what you like?</p>
+      </div>
+      <!-- Splash Page - check for user logged in -->
+      <div class="modal-content" id="notLoggedIn">
+        <span class="close">x</span>
+        <p>Just so you know, if you aren't signed in, then you won't be able to save the awesome date we're about to make for you. You've been warned! Click below just to see how it works:</p>
+        <button class="continue">Continue without logging in</button>
+        <button class="goBack">Go back and log in</button>
+      </div>
+      <!-- Results Page - second logged in notice -->
+      <div class="modal-content" id="stillNotLoggedIn">
+        <span class="close">x</span>
+        <p>Hey! That movie looks awesome, but we told you you had to log in to save this! You should go ahead and sign up now so this doesn't happen again!</p>
+      </div>
+      <!-- Results Page - customize night form -->
+      <div class="modal-content" id="saveModal">
+        <span class="close">x</span>
+        <form id="saveForm">
+          <input id="nightName" type="text" placeholder="Name Your Night">
+          <textarea id="nightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
+          <input id="saveDate" type="submit" value="Save your night!">
+        </form>
+      </div>
+
+      <!-- Profile Page - update night form -->
+      <div class="modal-content" id="updateModal">
+        <span class="close">x</span>
+        <form id="updateForm">
+          <input id="newNightName" type="text" placeholder="Name Your Night">
+          <textarea id="newNightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
+          <input id="updateNight" type="submit" value="Update">
+        </form>
+      </div>
+
+      <!-- Profile page - check before deleting -->
+      <div class="modal-content" id="deleteCheck">
+        <span class="close">x</span>
+        <p>You are about to delete this date forever! This action cannot be undone. Just making sure you know what you're doing. Click continue to wipe it out of existence!</p>
+        <button class="continue">Continue</button>
+        <button class="goBack">Go back</button>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; wdiatx8</p>
+    <p>recipe api copyright</p>
+    <p>This product uses the TMDb API but is not endorsed or certified by TMDb.</p>
+    <img src="photos/themoviedb.png" alt="The Movie DC logo" />
+  </footer>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
     <script src="js/script.js" charset="utf-8"></script>
   </body>
 </html>
