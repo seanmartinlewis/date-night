@@ -130,12 +130,22 @@
         <p>Hey! That movie looks awesome, but we told you you had to log in to save this! You should go ahead and sign up now so this doesn't happen again!</p>
       </div>
       <!-- Results Page - customize night form -->
-      <div class="modal-content" id="saveForm">
+      <div class="modal-content" id="saveModal">
         <span class="close">x</span>
-        <form id="nameAndComment">
+        <form id="saveForm">
           <input id="nightName" type="text" placeholder="Name Your Night">
           <textarea id="nightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
           <input id="saveDate" type="submit" value="Save your night!">
+        </form>
+      </div>
+
+      <!-- Profile Page - update night form -->
+      <div class="modal-content" id="updateModal">
+        <span class="close">x</span>
+        <form id="updateForm">
+          <input id="newNightName" type="text" placeholder="Name Your Night">
+          <textarea id="newNightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
+          <input id="updateNight" type="submit" value="Update">
         </form>
       </div>
 
