@@ -183,6 +183,7 @@ input#dateMaker {
 	height:70vh;
   margin: 0 auto;
 	color:white;
+	border-radius: 8px;
 	background-color: rgba(0,0,0,0.7);
 }
 
