@@ -61,6 +61,14 @@ table {
 	display: none;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
 .clearfix:after {
      visibility: hidden;
      display: block;
@@ -89,14 +97,6 @@ header {
 	cursor: pointer;
 	width: 100px;
 	height: auto;
-}
-
-a {
-  text-decoration: none;
-}
-
-a:hover {
-	text-decoration: none;
 }
 
 img#logo{
