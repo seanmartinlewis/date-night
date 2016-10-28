@@ -123,15 +123,25 @@
     <div class="modal" id="modalBackground">
       <!-- Splash Page - check for user selection -->
       <div class="modal-content" id="emptySelection">
-        <span class="close">x</span>
-        <p>How can we make you a date if we don't know what you like?</p>
+        <div class="modalHeader clearfix">
+          <span class="close">x</span>
+        </div>
+        <div class="modalMain">
+          <p>Please choose a genre and food type to continue!</p>
+        </div>
       </div>
       <!-- Splash Page - check for user logged in -->
       <div class="modal-content" id="notLoggedIn">
-        <span class="close">x</span>
-        <p>Just so you know, if you aren't signed in, then you won't be able to save the awesome date we're about to make for you. You've been warned! Click below just to see how it works:</p>
-        <button class="continue">Continue without logging in</button>
-        <button class="goBack">Go back and log in</button>
+        <div class="modalHeader clearfix">
+          <span class="close">x</span>
+        </div>
+        <div class="modalMain">
+          <p>If you don't log in, you won't be able to save the date! Continue anyway to see how it works.</p>
+        </div>
+        <div class="modalFooter">
+          <button class="continue">Continue without logging in</button>
+          <button class="goBack">Go back and log in</button>
+        </div>
       </div>
       <!-- Results Page - second logged in notice -->
       <div class="modal-content" id="stillNotLoggedIn">
