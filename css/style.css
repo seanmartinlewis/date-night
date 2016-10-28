@@ -390,6 +390,10 @@ ul#dates {
 	margin: 0 5px;
 }
 
+.crud a:hover {
+	color: rgb(218,183,165)
+}
+
 #column3 h3 {
 	font-size: 28px;
 	font-family: sans-serif;
