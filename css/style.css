@@ -477,7 +477,7 @@ ul#dates {
 }
 
 #nightDescription, #newNightDescription {
-	height: 50%;
+	height: auto;
 	margin-bottom: 20px;
 }
 
