@@ -88,6 +88,20 @@ a:hover {
 .clearfix { display: block; }
 /* close commented backslash hack */
 
+/*-----BUTTON STYLES-----*/
+button, input[type="submit"] {
+	background-color: rgb(185, 68, 89);
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+button:hover, input[type="submit"]:hover {
+	background-color: rgb(207, 125, 140);
+}
+
 /*-----HEADER STYLES-----*/
 header {
   padding: 10px;
@@ -260,21 +274,16 @@ a#recipeURL:hover {
 button#saveResults {
   display: block;
   margin: 0 auto;
-	color: black;
+	padding: 8px;
+	border: 1px solid white;
+	background-color: black;
+	color: white;
 }
 
-#getMovie {
-	background-color: white;
-	color: black;
-	font-family: sans-serif;
+button#saveResults:hover {
+	background-color: rgb(185, 68, 89);
+	border: none;
 }
-
-#getRecipe {
-	background-color: white;
-	color: black;
-	font-family: sans-serif;
-}
-
 
 /*----PROFILE PAGE STYLES----*/
 main {
@@ -443,6 +452,7 @@ ul#dates {
     background-color: #fefefe;
     margin: 15% auto;
     border: 1px solid #888;
+		border-radius: 5px;
     width: 60%;
 		min-height: 20%;
 }
