@@ -145,27 +145,41 @@
       </div>
       <!-- Results Page - second logged in notice -->
       <div class="modal-content" id="stillNotLoggedIn">
-        <span class="close">x</span>
-        <p>Hey! That movie looks awesome, but we told you you had to log in to save this! You should go ahead and sign up now so this doesn't happen again!</p>
+        <div class="modalHeader clearfix">
+          <span class="close">x</span>
+        </div>
+        <div class="modalMain">
+          <p>Cool, right? Log in at the top right and next time you can save your results!</p>
+        </div>
       </div>
       <!-- Results Page - customize night form -->
       <div class="modal-content" id="saveModal">
-        <span class="close">x</span>
-        <form id="saveForm">
-          <input id="nightName" type="text" placeholder="Name Your Night">
-          <textarea id="nightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
-          <input id="saveDate" type="submit" value="Save your night!">
-        </form>
+        <div class="modalHeader clearfix">
+          <span class="close">x</span>
+        </div>
+        <div class="modalMain">
+          <p>Give your date a fun name and short description!</p>
+          <form id="saveForm">
+            <input id="nightName" type="text" placeholder="Name Your Night">
+            <textarea id="nightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
+            <input id="saveDate" type="submit" value="Save your night!">
+          </form>
+        </div>
       </div>
 
       <!-- Profile Page - update night form -->
       <div class="modal-content" id="updateModal">
-        <span class="close">x</span>
-        <form id="updateForm">
-          <input id="newNightName" type="text" placeholder="Name Your Night">
-          <textarea id="newNightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
-          <input id="updateNight" type="submit" value="Update">
-        </form>
+        <div class="modalHeader clearfix">
+          <span class="close">x</span>
+        </div>
+        <div class="modalMain">
+          <p>Update your date!</p>
+          <form id="updateForm">
+            <input id="newNightName" type="text" placeholder="Name Your Night">
+            <textarea id="newNightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
+            <input id="updateNight" type="submit" value="Update">
+          </form>
+        </div>
       </div>
 
       <!-- Profile page - check before deleting -->

@@ -447,6 +447,24 @@ ul#dates {
 	padding-bottom: 20px;
 }
 
+.modal-content input {
+	display: block;
+	margin: 0 auto;
+}
+
+.modal-content form {
+	margin: 20px auto 0 auto;
+}
+
+#nightName, #newNightName, #nightDescription, #newNightDescription {
+	width: 60%;
+}
+
+#nightDescription, #newNightDescription {
+	height: 50%;
+	margin-bottom: 20px;
+}
+
 /* The Close Button */
 .close {
     color: rgb(80,80,80);
