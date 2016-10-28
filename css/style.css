@@ -61,6 +61,14 @@ table {
 	display: none;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
 .clearfix:after {
      visibility: hidden;
      display: block;
@@ -71,7 +79,7 @@ table {
      }
 .clearfix { display: inline-block; }
 
-* {
+body {
 	font-family: sans-serif;
 }
 
@@ -80,38 +88,40 @@ table {
 .clearfix { display: block; }
 /* close commented backslash hack */
 
+/*-----BUTTON STYLES-----*/
+button, input[type="submit"] {
+	background-color: rgb(185, 68, 89);
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+button:hover, input[type="submit"]:hover {
+	background-color: rgb(207, 125, 140);
+}
+
 /*-----HEADER STYLES-----*/
 header {
   padding: 10px;
 }
 
-#logo {
-	cursor: pointer;
-	width: 100px;
-	height: auto;
-}
-
-a {
-  text-decoration: none;
-}
-
-a:hover {
-	text-decoration: none;
-}
-
 img#logo{
+	cursor: pointer;
 	width: 110px;
 	height: 110px;
-
 }
 
 a#login {
+	font-size: 24px;
   float: right;
 	color: white;
+	font-family: sans-serif;
 }
 
 a#login:hover {
-	color: rgba(185, 68, 89, .85);
+	color: rgb(185, 68, 89);
 }
 
 div.dropdown-toggle {
@@ -126,7 +136,7 @@ img.profilePicture {
 	margin-top: 10px;
 	width: 80px;
 	height: 80px;
-	/*margin-right: 180px;*/
+	border-radius: 3px;
 }
 
 div#userInfo {
@@ -156,12 +166,9 @@ header .username {
 }
 
 /*----SPLASH PAGE STYLES----*/
-/*#splashPage {
-	background-color: black;
-}*/
 body {
 	background-image: url("../photos/awkward.jpg");
-	background-size:cover;
+	background-size: cover;
 	background-position: center;
 }
 
@@ -174,14 +181,6 @@ img#h1 {
 	display: block;
 	margin: 0 auto;
 }
-
-/*h1 {
-  font-family: 'Mogra', cursive;
-  font-size: 100px;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 100px 30px;
-}*/
 
 form {
   text-align: center;
@@ -198,7 +197,8 @@ input#dateMaker {
 	height:70vh;
   margin: 0 auto;
 	color:white;
-	background-color: rgba(0,0,0,0.8);
+	border-radius: 8px;
+	background-color: rgba(0,0,0,0.7);
 }
 
 #resultsPage .column {
@@ -230,8 +230,6 @@ div#recipeResults {
 
 #resultsPage .columnFooter {
 	height: 5vh;
-	/*position: absolute;*/
-	/*bottom: 20px;*/
 }
 
 #resultsPage .pageFooter {
@@ -242,6 +240,7 @@ h2 {
   font-size: 30px;
 	margin-bottom: 20px;
 	font-family: sans-serif;
+	color: rgb(185, 68, 89);
 }
 
 #recipeResults h2 {
@@ -253,18 +252,17 @@ h2 {
 	font-family: sans-serif;
 }
 
-/*div.columnContainer {
-	position: relative;
+p#recipeIngredients {
+	margin-bottom: 10px;
 }
 
-div.columnMain {
-	overflow: scroll;
+a#recipeURL {
+	color: rgb(185, 68, 89);
 }
 
-div.columnFooter {
-	position: absolute;
-	bottom: 0;
-}*/
+a#recipeURL:hover {
+	color: rgb(218,183,165);
+}
 
 #resultsPage img {
 	width: 40%;
@@ -276,21 +274,16 @@ div.columnFooter {
 button#saveResults {
   display: block;
   margin: 0 auto;
-	color: black;
+	padding: 8px;
+	border: 1px solid white;
+	background-color: black;
+	color: white;
 }
 
-#getMovie {
-	background-color: white;
-	color: black;
-	font-family: sans-serif;
+button#saveResults:hover {
+	background-color: rgb(185, 68, 89);
+	border: none;
 }
-
-#getRecipe {
-	background-color: white;
-	color: black;
-	font-family: sans-serif;
-}
-
 
 /*----PROFILE PAGE STYLES----*/
 main {
@@ -298,8 +291,7 @@ main {
 }
 
 #dateLog.row {
-	background: rgb(0,0,0);
-	opacity: 0.85;
+	background: rgba(0,0,0, 0.85);
 	margin: 0 auto;
 	padding: 40px;
 	width: 80%;
@@ -322,9 +314,9 @@ main {
 	text-decoration: none;
 }
 
-ul#dateLog {
-	background-color: rgb (0,0,0);
-	opacity: 0.85;
+ul#dates {
+	height: 70vh;
+	overflow: scroll;
 }
 
 .active {
@@ -387,25 +379,43 @@ ul#dateLog {
 }
 
 #dates .profilePicture {
+	display: block;
 	margin: 0 auto 20px auto;
 	width: 123px;
 	height: 123px;
+	border-radius: 5px;
 }
 
 .userBox .username {
 	font-size: 18px;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
+}
+
+.userBox {
+	margin-bottom: 25px;
+}
+
+.userBox p {
+	text-align: center;
 }
 
 .crud {
-	/*position: fixed;*/
-	/*bottom: 20px;*/
+	text-align: center;
 }
 
 .crud a {
+	color: rgb(185, 68, 89);
 	text-decoration: none;
 	display: inline-block;
-	margin: 0 20px;
+	margin: 0 5px;
+}
+
+#dates a:hover {
+	color: rgb(218,183,165)
+}
+
+#dates a {
+	color: rgb(185, 68, 89);
 }
 
 #column3 h3 {
@@ -425,31 +435,69 @@ ul#dateLog {
 
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
+    width: 100%;
+    height: 100%;
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.4);
 }
 
-/* Modal Content/Box */
+/* Modal Content Box */
 .modal-content {
 		display: none;
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
+    margin: 15% auto;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+		border-radius: 5px;
+    width: 60%;
+		min-height: 20%;
+}
+
+.modalHeader {
+	padding-right: 10px;
+	background-color: rgba(185, 68, 89, .85);
+}
+
+.modalMain {
+	padding: 30px;
+}
+
+.modalMain p {
+	text-align: center;
+	font-size: 20px;
+}
+
+.modalFooter {
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+.modal-content input {
+	display: block;
+	margin: 0 auto;
+}
+
+.modal-content form {
+	margin: 20px auto 0 auto;
+}
+
+#nightName, #newNightName, #nightDescription, #newNightDescription {
+	width: 60%;
+}
+
+#nightDescription, #newNightDescription {
+	height: auto;
+	margin-bottom: 20px;
 }
 
 /* The Close Button */
 .close {
-    color: #aaa;
+    color: white;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -457,7 +505,7 @@ ul#dateLog {
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: rgb(218,183,165);
     text-decoration: none;
     cursor: pointer;
 }
@@ -472,7 +520,18 @@ footer p {
 	 display: block;
 	 text-align: right;
 	 margin-right: 55px;
+	 color: white;
+	 font-family: sans-serif;
 }
+
+footer a {
+	color: rgb(185, 68, 89);
+}
+
+footer a:hover {
+	color: rgb(218,183,165);
+}
+
 footer img {
 	 width: 50px;
 	 height: auto;
@@ -480,4 +539,8 @@ footer img {
 	 top: 0;
 	 right: 0;
 	 margin-top: 60px;
+}
+
+#tmdblogo {
+	filter: grayscale(100%);
 }

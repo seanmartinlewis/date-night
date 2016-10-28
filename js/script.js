@@ -94,15 +94,18 @@ $(document).ready(function () {
   // Return users to splash page when they click on the logo
   $('#logo').on('click', function () {
     $('#splashPage').removeClass('hidden')
-    // $('body').css('background-image', 'url("../photos/awkward.jpg")');
     $('#resultsPage').addClass('hidden');
     $('#profilePage').addClass('hidden');
   });
 
   // Users can see profile from navigation bar
   $('#showProfile').on('click', function () {
+    // Make sure publicDates tab is active by default
+    $('#publicDates').addClass('active');
+    $('#myDates').removeClass('active');
+
+    // Show profile page
     $('#profilePage').removeClass('hidden');
-    // $('body').css('background-image', 'url("../photos/awkward.jpg")')
     $('#resultsPage').addClass('hidden');
     $('#splashPage').addClass('hidden');
 
@@ -214,7 +217,7 @@ function logOut() {
   localStorage.removeItem('username');
   localStorage.removeItem('profilePicture');
   localStorage.removeItem('userId');
-  window.location.href='/';
+  window.location.href='http://clrksanford.github.io/date-night/';
 }
 
 //PROFILE//
@@ -324,21 +327,7 @@ function getMovieResults(e) {
     console.log(errorThrown);
   });
 }
-// function toggleBackground(genre) {
-//   if (genre === 'horror') {
-//     console.log('horror');
-//     $('body').css('background-image', 'url("../photos/horror2.jpg")')
-//   } else if (genre === 'comedy') {
-//     console.log('comedy');
-//     $('body').css('background-image', 'url("../photos/comedy.jpg")')
-//   } else if (genre === 'drama') {
-//     console.log('drama');
-//     $('body').css('background-image', 'url("../photos/CivilWarmovie.jpg")')
-//   } else if (genre === 'romance') {
-//     console.log('romance');
-//     $('body').css('background-image', 'url("../photos/romantic.jpg")')
-//   }
-// }
+
 //SHOW MOVIE//
 function showMovie(movie) {
   var movieTitle = movie.title;
@@ -384,7 +373,11 @@ function saveDateResults() {
     // Hide results page and take users to profile page
     $('#resultsPage').addClass('hidden');
     $('#profilePage').removeClass('hidden');
-    $('body').css('background-image', 'url("../photos/awkward.jpg")')
+
+    // Make sure public dates tab is visible by default
+    $('#publicDates').addClass('active');
+    $('#myDates').removeClass('active')
+
     // Reload list of dates to dispaly in profile feed
     loadDates();
   }).fail(function (jqXHR, textStatus, errorThrown) {

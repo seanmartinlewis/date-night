@@ -109,75 +109,100 @@
   <!-- PROFILE PAGE -->
 
       <div id="profilePage" class="container hidden">
-        <!-- <div class="row" id="userProfile">
-          <h2 class="username"></h2>
-          <img class="profilePicture" src="" alt="">
-          <h3 id="favFoods">Favorite Foods</h3>
-          <h3 id="favMovies">Favorite Movies</h3>
-        </div> -->
-          <nav id="dateNav">
-            <a href="" id="publicDates" class="active profileTab">All Dates</a>
-            <a href="" id="myDates" class="profileTab">My Dates</a>
-          </nav>
-          <div class="row" id="dateLog">
+        <nav id="dateNav">
+          <a href="" id="publicDates" class="active profileTab">All Dates</a>
+          <a href="" id="myDates" class="profileTab">My Dates</a>
+        </nav>
+        <div class="row" id="dateLog">
           <ul id="dates"></ul>
         </div>
       </div>
 
     <!-- MODALS -->
-    <!-- Modal background -->nav
+    <!-- Modal background -->
     <div class="modal" id="modalBackground">
       <!-- Splash Page - check for user selection -->
       <div class="modal-content" id="emptySelection">
-        <span class="close">x</span>
-        <p>How can we make you a date if we don't know what you like?</p>
+        <div class="modalHeader clearfix">
+          <span class="close">x</span>
+        </div>
+        <div class="modalMain">
+          <p>Please choose a genre and food type to continue!</p>
+        </div>
       </div>
       <!-- Splash Page - check for user logged in -->
       <div class="modal-content" id="notLoggedIn">
-        <span class="close">x</span>
-        <p>Just so you know, if you aren't signed in, then you won't be able to save the awesome date we're about to make for you. You've been warned! Click below just to see how it works:</p>
-        <button class="continue">Continue without logging in</button>
-        <button class="goBack">Go back and log in</button>
+        <div class="modalHeader clearfix">
+          <span class="close">x</span>
+        </div>
+        <div class="modalMain">
+          <p>If you don't log in, you won't be able to save the date! Continue anyway to see how it works.</p>
+        </div>
+        <div class="modalFooter">
+          <button class="continue">Continue without logging in</button>
+          <button class="goBack">Go back and log in</button>
+        </div>
       </div>
       <!-- Results Page - second logged in notice -->
       <div class="modal-content" id="stillNotLoggedIn">
-        <span class="close">x</span>
-        <p>Hey! That movie looks awesome, but we told you you had to log in to save this! You should go ahead and sign up now so this doesn't happen again!</p>
+        <div class="modalHeader clearfix">
+          <span class="close">x</span>
+        </div>
+        <div class="modalMain">
+          <p>Cool, right? Click the log in button up top and next time you can save your results!</p>
+        </div>
       </div>
       <!-- Results Page - customize night form -->
       <div class="modal-content" id="saveModal">
-        <span class="close">x</span>
-        <form id="saveForm">
-          <input id="nightName" type="text" placeholder="Name Your Night">
-          <textarea id="nightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
-          <input id="saveDate" type="submit" value="Save your night!">
-        </form>
+        <div class="modalHeader clearfix">
+          <span class="close">x</span>
+        </div>
+        <div class="modalMain">
+          <p>Give your date a fun name and short description!</p>
+          <form id="saveForm">
+            <input id="nightName" type="text" placeholder="Name Your Night">
+            <textarea id="nightDescription" rows="8" placeholder="Describe Your Night"></textarea>
+            <input id="saveDate" type="submit" value="Save your night!">
+          </form>
+        </div>
       </div>
 
       <!-- Profile Page - update night form -->
       <div class="modal-content" id="updateModal">
-        <span class="close">x</span>
-        <form id="updateForm">
-          <input id="newNightName" type="text" placeholder="Name Your Night">
-          <textarea id="newNightDescription" name="comment" form="usrform" placeholder="Describe Your Night"></textarea>
-          <input id="updateNight" type="submit" value="Update">
-        </form>
+        <div class="modalHeader clearfix">
+          <span class="close">x</span>
+        </div>
+        <div class="modalMain">
+          <p>Update your date!</p>
+          <form id="updateForm">
+            <input id="newNightName" type="text" placeholder="Name Your Night">
+            <textarea id="newNightDescription" rows="8" placeholder="Describe Your Night"></textarea>
+            <input id="updateNight" type="submit" value="Update">
+          </form>
+        </div>
       </div>
 
       <!-- Profile page - check before deleting -->
       <div class="modal-content" id="deleteCheck">
-        <span class="close">x</span>
-        <p>You are about to delete this date forever! This action cannot be undone. Just making sure you know what you're doing. Click continue to wipe it out of existence!</p>
-        <button class="continue">Continue</button>
-        <button class="goBack">Go back</button>
+        <div class="modalHeader clearfix">
+          <span class="close">x</span>
+        </div>
+        <div class="modalMain">
+          <p>You are about to delete this date forever! This action cannot be undone. Click continue to wipe it out of existence!</p>
+        </div>
+        <div class="modalFooter">
+          <button class="continue">Continue</button>
+          <button class="goBack">Go back</button>
+        </div>
       </div>
     </div>
   </main>
   <footer>
     <p>&copy; wdiatx8</p>
-    <p>recipe api copyright</p>
+    <p>All food recipes and photos are owned by Cookie and Kate. <br>
+      Original can be accessed at <a target="_blank" href = 'http://cookieandkate.com'>cookieandkate.com</a>.</p>
     <p>This product uses the TMDb API but is not endorsed or certified by TMDb.</p>
-    <img src="photos/themoviedb.png" alt="The Movie DC logo" />
+    <img id="tmdblogo" src="photos/themoviedb.png" alt="The Movie DC logo" />
   </footer>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="js/bootstrap.min.js" charset="utf-8"></script>
