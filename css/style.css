@@ -136,7 +136,7 @@ img.profilePicture {
 	margin-top: 10px;
 	width: 80px;
 	height: 80px;
-	/*margin-right: 180px;*/
+	border-radius: 3px;
 }
 
 div#userInfo {
@@ -383,6 +383,7 @@ ul#dates {
 	margin: 0 auto 20px auto;
 	width: 123px;
 	height: 123px;
+	border-radius: 5px;
 }
 
 .userBox .username {
