@@ -45,9 +45,9 @@ A tool to help pick out a film and recipe for a fun twist on the most classic of
            7. prevent users from editing/deleting other people’s dates
 
 ##Wire-Frames
-(./photos/Optimized-image1.JPG)
-(./photos/Optimized-image2.JPG)
-(./photos/Optimized-image3.JPG)
-(./photos/Optimized-image4.JPG)
-(./photos/Optimized-image5.JPG)
-(./photos/Optimized-image6.JPG)
+![](./photos/Optimiezed-image1.JPG)
+![](./photos/Optimized-image2.JPG)
+![](./photos/Optimized-image3.JPG)
+![](./photos/Optimized-image4.JPG)
+![](./photos/Optimized-image5.JPG)
+![](./photos/Optimized-image6.JPG)
