@@ -217,7 +217,7 @@ function logOut() {
   localStorage.removeItem('username');
   localStorage.removeItem('profilePicture');
   localStorage.removeItem('userId');
-  window.location.href='/';
+  window.location.href='http://clrksanford.github.io/date-night/';
 }
 
 //PROFILE//
