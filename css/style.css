@@ -156,9 +156,6 @@ header .username {
 }
 
 /*----SPLASH PAGE STYLES----*/
-/*#splashPage {
-	background-color: black;
-}*/
 body {
 	background-image: url("../photos/awkward.jpg");
 	background-size:cover;
@@ -174,14 +171,6 @@ img#h1 {
 	display: block;
 	margin: 0 auto;
 }
-
-/*h1 {
-  font-family: 'Mogra', cursive;
-  font-size: 100px;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 100px 30px;
-}*/
 
 form {
   text-align: center;
@@ -230,8 +219,6 @@ div#recipeResults {
 
 #resultsPage .columnFooter {
 	height: 5vh;
-	/*position: absolute;*/
-	/*bottom: 20px;*/
 }
 
 #resultsPage .pageFooter {
@@ -252,19 +239,6 @@ h2 {
 	font-size: 20px;
 	font-family: sans-serif;
 }
-
-/*div.columnContainer {
-	position: relative;
-}
-
-div.columnMain {
-	overflow: scroll;
-}
-
-div.columnFooter {
-	position: absolute;
-	bottom: 0;
-}*/
 
 #resultsPage img {
 	width: 40%;
@@ -395,11 +369,6 @@ ul#dateLog {
 .userBox .username {
 	font-size: 18px;
 	margin-bottom: 10px;
-}
-
-.crud {
-	/*position: fixed;*/
-	/*bottom: 20px;*/
 }
 
 .crud a {
