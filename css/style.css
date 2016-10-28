@@ -95,6 +95,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+	text-decoration: none;
+}
+
 img#logo{
 	width: 110px;
 	height: 110px;
@@ -103,6 +107,11 @@ img#logo{
 
 a#login {
   float: right;
+	color: white;
+}
+
+a#login:hover {
+	color: rgba(185, 68, 89, .85);
 }
 
 div.dropdown-toggle {
