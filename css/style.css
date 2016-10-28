@@ -235,6 +235,18 @@ h2 {
 	font-family: sans-serif;
 }
 
+p#recipeIngredients {
+	margin-bottom: 10px;
+}
+
+a#recipeURL {
+	color: rgb(185, 68, 89);
+}
+
+a#recipeURL:hover {
+	color: rgb(218,183,165);
+}
+
 #resultsPage img {
 	width: 40%;
 	height: auto;
@@ -385,8 +397,12 @@ ul#dates {
 	margin: 0 5px;
 }
 
-.crud a:hover {
+#dates a:hover {
 	color: rgb(218,183,165)
+}
+
+#dates a {
+	color: rgb(185, 68, 89);
 }
 
 #column3 h3 {
