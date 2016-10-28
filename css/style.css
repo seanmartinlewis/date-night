@@ -103,10 +103,11 @@ a#login {
 	font-size: 24px;
   float: right;
 	color: white;
+	font-family: sans-serif;
 }
 
 a#login:hover {
-	color: rgba(185, 68, 89);
+	color: rgb(185, 68, 89);
 }
 
 div.dropdown-toggle {
@@ -506,6 +507,8 @@ footer p {
 	 display: block;
 	 text-align: right;
 	 margin-right: 55px;
+	 color: white;
+	 font-family: sans-serif;
 }
 footer img {
 	 width: 50px;
