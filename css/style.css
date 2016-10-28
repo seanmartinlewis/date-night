@@ -360,6 +360,7 @@ ul#dates {
 }
 
 #dates .profilePicture {
+	display: block;
 	margin: 0 auto 20px auto;
 	width: 123px;
 	height: 123px;
@@ -367,13 +368,26 @@ ul#dates {
 
 .userBox .username {
 	font-size: 18px;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
+}
+
+.userBox {
+	margin-bottom: 25px;
+}
+
+.userBox p {
+	text-align: center;
+}
+
+.crud {
+	text-align: center;
 }
 
 .crud a {
+	color: rgb(185, 68, 89);
 	text-decoration: none;
 	display: inline-block;
-	margin: 0 20px;
+	margin: 0 5px;
 }
 
 #column3 h3 {
