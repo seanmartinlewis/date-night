@@ -100,6 +100,11 @@ $(document).ready(function () {
 
   // Users can see profile from navigation bar
   $('#showProfile').on('click', function () {
+    // Make sure publicDates tab is active by default
+    $('#publicDates').addClass('active');
+    $('#myDates').removeClass('active');
+
+    // Show profile page
     $('#profilePage').removeClass('hidden');
     $('#resultsPage').addClass('hidden');
     $('#splashPage').addClass('hidden');
@@ -368,6 +373,11 @@ function saveDateResults() {
     // Hide results page and take users to profile page
     $('#resultsPage').addClass('hidden');
     $('#profilePage').removeClass('hidden');
+
+    // Make sure public dates tab is visible by default
+    $('#publicDates').addClass('active');
+    $('#myDates').removeClass('active')
+
     // Reload list of dates to dispaly in profile feed
     loadDates();
   }).fail(function (jqXHR, textStatus, errorThrown) {
