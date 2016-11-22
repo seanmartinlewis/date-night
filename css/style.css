@@ -167,9 +167,11 @@ header .username {
 
 /*----SPLASH PAGE STYLES----*/
 body {
-	background-image: url("../photos/awkward.jpg");
+	background-image: url("../photos/dateback.jpg");
 	background-size: cover;
 	background-position: center;
+	background-repeat: repeat;
+	background-color: rgb(210,	80,	97);
 }
 
 #splashPage {
@@ -180,6 +182,8 @@ body {
 img#h1 {
 	display: block;
 	margin: 0 auto;
+	height: 280px;
+	width: auto;
 }
 
 form {
@@ -308,7 +312,7 @@ main {
 #dateNav a {
 	display: inline-block;
 	font-size: 25px;
-	font-family: "Apple Chancery", serif;
+	font-family: helvetica, serif;
 	color: white;
 	margin: 0 20px;
 	text-decoration: none;
